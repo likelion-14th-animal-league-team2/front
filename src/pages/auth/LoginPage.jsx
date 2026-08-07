@@ -1,10 +1,18 @@
+import { useNavigate } from "react-router-dom";
 import { IconLogo, IconDocCheck, IconGlobeArrow, IconChatBubble } from "../../components/common/icons";
+import { useAuthStore } from "../../store/useAuthStore";
+import { PATH } from "../../routes/paths";
 
 const ACCENT_DOTS = ["#EF4444", "#2563EB", "#F59E0B", "#22C55E"];
 
 function LoginPage() {
+  const navigate = useNavigate();
+  const login = useAuthStore((state) => state.login);
+
   const handleKakaoLogin = () => {
-    console.log("카카오 로그인 시작");
+    // TODO: 백엔드 카카오 로그인 API 연동되면 실제 인증 플로우로 교체
+    login();
+    navigate(PATH.MAIN);
   };
 
   return (
