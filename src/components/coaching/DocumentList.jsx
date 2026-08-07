@@ -1,0 +1,61 @@
+import { useDocuments } from "../../hooks/useDocuments";
+import { IconDocument } from "../common/icons";
+
+const STATUS_STYLE = {
+  완료: "bg-emerald-50 text-emerald-600",
+  진행중: "bg-slate-100 text-slate-600",
+};
+
+export default function DocumentList() {
+  const { data: documents, isLoading, isError } = useDocuments();
+
+  if (isLoading) {
+    return <p className="text-sm text-slate-400 py-4">불러오는 중...</p>;
+  }
+
+  if (isError) {
+    return (
+      <p className="text-sm text-red-500 py-4">
+        문서 목록을 불러오지 못했어요. 다시 시도해주세요.
+      </p>
+    );
+  }
+
+  if (!documents || documents.length === 0) {
+    return (
+      <p className="text-sm text-slate-400 py-4">
+        아직 제출한 문서가 없어요. 이력서나 자소서를 업로드해보세요.
+      </p>
+    );
+  }
+
+  return (
+    <div className="space-y-2">
+      {documents.map((doc) => (
+        <div
+          key={doc.id}
+          className="flex items-center justify-between rounded-lg border border-slate-100 px-3 py-2.5"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-7 h-7 rounded bg-slate-50 flex items-center justify-center text-slate-400">
+              <IconDocument />
+            </div>
+            <div>
+              <p className="text-sm text-slate-800">{doc.name}</p>
+              <p className="text-xs text-slate-400">
+                {doc.uploadedAt} 업로드 · {doc.type === "resume" ? "이력서" : "자소서"}
+              </p>
+            </div>
+          </div>
+          <span
+            className={`text-xs px-2 py-1 rounded-md font-medium ${
+              STATUS_STYLE[doc.coachingStatus] ?? "bg-slate-50 text-slate-500"
+            }`}
+          >
+            {doc.coachingStatus}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
