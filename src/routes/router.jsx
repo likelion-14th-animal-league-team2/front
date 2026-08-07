@@ -4,6 +4,7 @@ import RootLayout from "../components/layout/RootLayout";
 import { PATH } from "./paths";
 
 const MainPage = lazy(() => import("../pages/main/MainPage"));
+const LoginPage = lazy(() => import("../pages/auth/LoginPage"));
 
 const withSuspense = (Component) => (
   <Suspense fallback={<div>로딩 중...</div>}>
@@ -19,5 +20,9 @@ export const router = createBrowserRouter([
       { index: true, element: withSuspense(MainPage) },
       { path: PATH.MAIN.slice(1), element: withSuspense(MainPage) },
     ],
+  },
+  {
+    path: PATH.LOGIN,
+    element: withSuspense(LoginPage),
   },
 ]);
