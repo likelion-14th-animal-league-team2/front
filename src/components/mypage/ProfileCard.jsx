@@ -1,23 +1,11 @@
-import { IconCamera, IconCalendar, IconEarthAsia } from "../common/icons";
-import avatarDefault from "../../assets/mypage/avatar-default.png";
+import { IconUser, IconCalendar, IconEarthAsia } from "../common/icons";
 
 export default function ProfileCard({ profile }) {
   return (
     <section className="bg-white rounded-2xl border border-gray-200 p-8 flex items-center justify-between gap-6">
       <div className="flex items-center gap-6">
-        <div className="relative w-24 h-24 shrink-0">
-          <img
-            src={profile.avatarUrl || avatarDefault}
-            alt=""
-            className="w-24 h-24 rounded-full object-cover border-4 border-[#173b6b]/10"
-          />
-          <button
-            type="button"
-            aria-label="프로필 사진 변경"
-            className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-[#173b6b] border-2 border-white flex items-center justify-center text-white"
-          >
-            <IconCamera />
-          </button>
+        <div className="w-24 h-24 rounded-full bg-[#173b6b]/10 border-4 border-[#173b6b]/10 flex items-center justify-center text-[#173b6b] shrink-0">
+          <IconUser width="36" height="41.14" />
         </div>
 
         <div>
