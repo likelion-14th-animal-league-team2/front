@@ -136,3 +136,22 @@ export const IconLogout = (props) => (
     />
   </svg>
 );
+
+export const IconSearch = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" width="16" height="16" {...props}>
+    <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.8" />
+    <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+  </svg>
+);
+
+export const IconArrowRight = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" width="16" height="16" {...props}>
+    <path
+      d="M5 12h14M13 6l6 6-6 6"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
