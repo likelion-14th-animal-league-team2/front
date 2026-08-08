@@ -210,3 +210,88 @@ export const IconArrowLeft = (props) => (
     />
   </svg>
 );
+
+export const IconPlus = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" width="14" height="14" {...props}>
+    <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+  </svg>
+);
+
+export const IconFilter = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" width="12" height="12" {...props}>
+    <path
+      d="M4 5h16l-6 7.5V19l-4 2v-8.5L4 5z"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const IconSort = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" width="14" height="14" {...props}>
+    <path
+      d="M6 4v14m0 0l-3-3m3 3l3-3M13 6h7M13 12h5M13 18h3"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const IconChevronDown = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" width="10" height="10" {...props}>
+    <path
+      d="M6 9l6 6 6-6"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const IconChevronLeft = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" width="14" height="14" {...props}>
+    <path
+      d="M15 6l-6 6 6 6"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const IconCircleCheck = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" width="14" height="14" {...props}>
+    <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
+    <path
+      d="M8.5 12.5l2.5 2.5 4.5-5"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const IconStar = (props) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" {...props}>
+    <path d="M12 2.5l2.9 6.06 6.6.72-4.9 4.55 1.28 6.6L12 17l-5.88 3.43 1.28-6.6L2.5 9.28l6.6-.72L12 2.5z" />
+  </svg>
+);
+
+export const IconClock = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" width="10" height="10" {...props}>
+    <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
+    <path
+      d="M12 7v5l3.5 2"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);

@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
 import { useApplications, useApplicationStats } from "../../hooks/useApplications";
 import { IconChevronRight, IconSend } from "../common/icons";
+import { PATH } from "../../routes/paths";
 
 const STATUS_STYLE = {
   최종합격: "bg-emerald-50 text-emerald-700 border-emerald-200",
@@ -23,9 +25,12 @@ export default function ApplicationSection() {
         <h2 className="font-semibold text-slate-900 text-[15px]">
           공고 지원 내역
         </h2>
-        <button className="text-xs text-slate-400 flex items-center gap-0.5 hover:text-slate-600">
+        <Link
+          to={PATH.COACHING_HISTORY}
+          className="text-xs text-slate-400 flex items-center gap-0.5 hover:text-slate-600"
+        >
           전체 보기 <IconChevronRight />
-        </button>
+        </Link>
       </div>
 
       {stats && (
