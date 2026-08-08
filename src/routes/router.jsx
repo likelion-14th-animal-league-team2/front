@@ -7,6 +7,7 @@ const MainPage = lazy(() => import("../pages/main/MainPage"));
 const LoginPage = lazy(() => import("../pages/auth/LoginPage"));
 const MyPage = lazy(() => import("../pages/mypage/MyPage"));
 const OnboardingPage = lazy(() => import("../pages/auth/OnboardingPage"));
+const ApplicationInfoPage = lazy(() => import("../pages/coaching/ApplicationInfoPage"));
 
 const withSuspense = (Component) => (
   <Suspense fallback={<div>로딩 중...</div>}>
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
       { index: true, element: withSuspense(MainPage) },
       { path: PATH.MAIN.slice(1), element: withSuspense(MainPage) },
       { path: PATH.MYPAGE.slice(1), element: withSuspense(MyPage) },
+      { path: PATH.APPLICATION_INFO.slice(1), element: withSuspense(ApplicationInfoPage) },
     ],
   },
   {
