@@ -1,5 +1,7 @@
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { useCoachingHistory } from "../../hooks/useCoachingHistory";
+import { PATH } from "../../routes/paths";
 import {
   IconDocument,
   IconSearch,
@@ -86,10 +88,13 @@ function CoachingHistory() {
               className="w-64 border border-slate-200 rounded-xl pl-9 pr-3 py-2.5 text-sm outline-none focus:border-[#1E2A47]"
             />
           </div>
-          <button className="flex items-center gap-1.5 bg-[#1E2A47] text-white text-sm font-semibold rounded-xl px-4 py-2.5 hover:bg-[#16203A] transition-colors whitespace-nowrap">
+          <Link
+            to={PATH.RESUME_UPLOAD}
+            className="flex items-center gap-1.5 bg-[#1E2A47] text-white text-sm font-semibold rounded-xl px-4 py-2.5 hover:bg-[#16203A] transition-colors whitespace-nowrap"
+          >
             <IconPlus />
             새 코칭 받기
-          </button>
+          </Link>
         </div>
       </div>
       <p className="text-slate-500 text-sm mb-6">
