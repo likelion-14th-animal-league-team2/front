@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   IconMapPin,
   IconBuilding,
@@ -14,6 +14,7 @@ const MAX_DESCRIPTION_LENGTH = 2000;
 
 function ApplicationInfoPage() {
   const fileInputRef = useRef(null);
+  const navigate = useNavigate();
 
   const [form, setForm] = useState({
     country: "",
@@ -41,12 +42,14 @@ function ApplicationInfoPage() {
   };
 
   const handleStartCoaching = () => {
+    // TODO: 지원 정보 저장 API 연동
     console.log({ ...form, screenshotFile });
+    navigate(PATH.COACHING_LOADING);
   };
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-8">
-      {/* 상단 브레드크럼 + 메인으로 */}
+      {/* 상단 브레드크럼 */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-1.5 text-xs text-slate-400">
           <span>이력서 제출</span>
