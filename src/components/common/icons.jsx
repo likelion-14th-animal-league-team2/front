@@ -217,6 +217,17 @@ export const IconPlus = (props) => (
   </svg>
 );
 
+export const IconX = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" width="12" height="12" {...props}>
+    <path
+      d="M6 6l12 12M18 6L6 18"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
 export const IconFilter = (props) => (
   <svg viewBox="0 0 24 24" fill="none" width="12" height="12" {...props}>
     <path
@@ -280,6 +291,27 @@ export const IconCircleCheck = (props) => (
 export const IconStar = (props) => (
   <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" {...props}>
     <path d="M12 2.5l2.9 6.06 6.6.72-4.9 4.55 1.28 6.6L12 17l-5.88 3.43 1.28-6.6L2.5 9.28l6.6-.72L12 2.5z" />
+  </svg>
+);
+
+export const IconInfo = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" width="10" height="10" {...props}>
+    <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
+    <path d="M12 11v5M12 8v.01" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+  </svg>
+);
+
+export const IconImage = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" width="16" height="16" {...props}>
+    <rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" strokeWidth="1.6" />
+    <circle cx="8.5" cy="9.5" r="1.5" stroke="currentColor" strokeWidth="1.6" />
+    <path
+      d="M21 16l-5.5-5.5L9 17"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 );
 
