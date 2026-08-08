@@ -155,3 +155,58 @@ export const IconArrowRight = (props) => (
     />
   </svg>
 );
+
+export const IconMapPin = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" width="16" height="16" {...props}>
+    <path
+      d="M12 21s-7-6.1-7-11.5C5 5.9 8.13 3 12 3s7 2.9 7 6.5C19 14.9 12 21 12 21z"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinejoin="round"
+    />
+    <circle cx="12" cy="9.5" r="2.3" stroke="currentColor" strokeWidth="1.8" />
+  </svg>
+);
+
+export const IconBuilding = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" width="16" height="16" {...props}>
+    <rect x="4" y="3" width="11" height="18" rx="1" stroke="currentColor" strokeWidth="1.8" />
+    <path d="M15 8h5v13h-5" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+    <line x1="7" y1="7" x2="7" y2="7.01" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+    <line x1="11" y1="7" x2="11" y2="7.01" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+    <line x1="7" y1="11" x2="7" y2="11.01" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+    <line x1="11" y1="11" x2="11" y2="11.01" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+    <line x1="7" y1="15" x2="7" y2="15.01" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+    <line x1="11" y1="15" x2="11" y2="15.01" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+  </svg>
+);
+
+export const IconFolderUpload = (props) => (
+  <svg viewBox="0 0 40 40" fill="none" width="34" height="34" {...props}>
+    <path
+      d="M4 12a2 2 0 012-2h9l3 3h16a2 2 0 012 2v15a2 2 0 01-2 2H6a2 2 0 01-2-2V12z"
+      fill="#EEF2FF"
+      stroke="#94A3B8"
+      strokeWidth="1.6"
+    />
+    <path
+      d="M20 27v-9m0 0l-4 4m4-4l4 4"
+      stroke="#1E2A47"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const IconArrowLeft = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" width="16" height="16" {...props}>
+    <path
+      d="M19 12H5M11 6l-6 6 6 6"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
