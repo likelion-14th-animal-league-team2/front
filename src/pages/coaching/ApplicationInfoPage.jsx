@@ -55,12 +55,6 @@ function ApplicationInfoPage() {
           <span>&gt;</span>
           <span>AI 코칭 받기</span>
         </div>
-        <Link
-          to={PATH.MAIN}
-          className="text-xs text-[#1E2A47] font-medium hover:underline"
-        >
-          ← 메인으로
-        </Link>
       </div>
 
       <h1 className="text-xl font-bold text-slate-900 mb-1">지원 정보 입력</h1>
