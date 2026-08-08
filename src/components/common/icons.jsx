@@ -327,3 +327,46 @@ export const IconClock = (props) => (
     />
   </svg>
 );
+
+export const IconSparkles = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" width="24" height="24" {...props}>
+    <path
+      d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z"
+      fill="#fff"
+    />
+    <path
+      d="M19 14l.7 2.1L22 17l-2.3.9L19 20l-.7-2.1L16 17l2.3-.9L19 14z"
+      fill="#fff"
+      opacity="0.8"
+    />
+  </svg>
+);
+
+export const IconCheckCircle = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" width="16" height="16" {...props}>
+    <circle cx="12" cy="12" r="10" fill="#10B981" />
+    <path
+      d="M7.5 12.5l3 3 6-6.5"
+      stroke="#fff"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const IconShieldCheck = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" width="14" height="14" {...props}>
+    <path
+      d="M12 2l8 3.5v6c0 5-3.4 8.7-8 10.5-4.6-1.8-8-5.5-8-10.5v-6L12 2z"
+      fill="#10B981"
+    />
+    <path
+      d="M8.5 12l2.3 2.3L16 9.5"
+      stroke="#fff"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
