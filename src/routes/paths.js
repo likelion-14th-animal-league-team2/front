@@ -5,4 +5,5 @@ export const PATH = {
   MYPAGE: "/mypage",
   ONBOARDING: "/onboarding",
   APPLICATION_INFO: "/coaching/apply-info",
+  COACHING_HISTORY: "/coaching/history",
 };
