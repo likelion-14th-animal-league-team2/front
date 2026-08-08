@@ -3,17 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { IconLogo, IconSearch, IconArrowRight } from "../../components/common/icons";
 import { PATH } from "../../routes/paths";
 
-const FIELDS = ["디자인", "개발", "마케팅", "경영·기획", "금융", "의료"];
-const FIELDS_FULL_WIDTH = ["교육", "기타"];
-
 function OnboardingPage() {
   const navigate = useNavigate();
   const [age, setAge] = useState("");
-  const [selectedField, setSelectedField] = useState("개발");
   const [country, setCountry] = useState("");
 
   const handleSubmit = () => {
-    console.log({ age, selectedField, country });
+    // TODO: 온보딩 정보 저장 API 연동
+    console.log({ age, country });
     navigate(PATH.MAIN);
   };
 
@@ -53,45 +50,6 @@ function OnboardingPage() {
                 className="flex-1 border border-slate-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-[#1E2A47]"
               />
               <span className="text-sm text-slate-400">만</span>
-            </div>
-          </div>
-
-          {/* 관심 분야 */}
-          <div>
-            <label className="block text-sm font-semibold text-slate-800 mb-2">
-              관심 분야
-            </label>
-            <div className="grid grid-cols-3 gap-2 mb-2">
-              {FIELDS.map((field) => (
-                <button
-                  key={field}
-                  type="button"
-                  onClick={() => setSelectedField(field)}
-                  className={`rounded-lg py-2.5 text-sm border transition-colors ${
-                    selectedField === field
-                      ? "border-[#1E2A47] text-[#1E2A47] font-semibold bg-slate-50"
-                      : "border-slate-200 text-slate-600 hover:bg-slate-50"
-                  }`}
-                >
-                  {field}
-                </button>
-              ))}
-            </div>
-            <div className="space-y-2">
-              {FIELDS_FULL_WIDTH.map((field) => (
-                <button
-                  key={field}
-                  type="button"
-                  onClick={() => setSelectedField(field)}
-                  className={`w-full rounded-lg py-2.5 text-sm border transition-colors ${
-                    selectedField === field
-                      ? "border-[#1E2A47] text-[#1E2A47] font-semibold bg-slate-50"
-                      : "border-slate-200 text-slate-600 hover:bg-slate-50"
-                  }`}
-                >
-                  {field}
-                </button>
-              ))}
             </div>
           </div>
 
