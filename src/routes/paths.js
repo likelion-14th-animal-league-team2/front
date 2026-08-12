@@ -8,4 +8,5 @@ export const PATH = {
   COACHING_HISTORY: "/coaching/history",
   RESUME_UPLOAD: "/coaching/resume-upload",
   COACHING_LOADING: "/coaching/loading",
+  COACHING_RESULT: "/coaching/result",
 };
