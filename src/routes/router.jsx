@@ -11,6 +11,7 @@ const ApplicationInfoPage = lazy(() => import("../pages/coaching/ApplicationInfo
 const CoachingHistory = lazy(() => import("../pages/coaching/CoachingHistory"));
 const ResumeUpload = lazy(() => import("../pages/coaching/ResumeUpload"));
 const CoachingLoadingPage = lazy(() => import("../pages/coaching/CoachingLoadingPage"));
+const CoachingResultPage = lazy(() => import("../pages/coaching/CoachingResultPage"));
 
 const withSuspense = (Component) => (
   <Suspense fallback={<div>로딩 중...</div>}>
@@ -30,6 +31,7 @@ export const router = createBrowserRouter([
       { path: PATH.COACHING_HISTORY.slice(1), element: withSuspense(CoachingHistory) },
       { path: PATH.RESUME_UPLOAD.slice(1), element: withSuspense(ResumeUpload) },
       { path: PATH.COACHING_LOADING.slice(1), element: withSuspense(CoachingLoadingPage) },
+      { path: PATH.COACHING_RESULT.slice(1), element: withSuspense(CoachingResultPage) },
     ],
   },
   {

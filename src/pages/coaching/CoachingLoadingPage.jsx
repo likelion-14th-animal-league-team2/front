@@ -18,8 +18,8 @@ function CoachingLoadingPage() {
 
   useEffect(() => {
     if (currentStep >= STEPS.length) {
-      navigate(PATH.MAIN);
-      return;
+        navigate(PATH.COACHING_RESULT);
+        return;
     }
     const timer = setTimeout(() => {
       setCurrentStep((prev) => prev + 1);
