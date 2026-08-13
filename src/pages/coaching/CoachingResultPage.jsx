@@ -1,12 +1,7 @@
-import { useState } from "react";
 import {
-  IconLogo,
   IconTrendUp,
   IconAlertCircle,
   IconLightbulb,
-  IconMessageCircle,
-  IconBookmark,
-  IconSend,
 } from "../../components/common/icons";
 
 const INSIGHT_CARDS = [
@@ -45,36 +40,20 @@ const INSIGHT_CARDS = [
 const RESUME_SKILLS = ["기획", "데이터분석", "Java/Spring", "Figma", "SQL"];
 
 function CoachingResultPage() {
-  const [feedback, setFeedback] = useState("");
-
-  const handleSave = () => {
-    // TODO: 코칭 결과 저장 API 연동
-    console.log("저장하기");
-  };
-
-  const handleSendRequest = () => {
-    // TODO: 추가 질문/요청사항 전송 API 연동
-    console.log("요청 내용:", feedback);
-  };
-
   return (
     <div className="max-w-4xl mx-auto px-6 py-8">
-      {/* 헤더 */}
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-2">
-          <IconLogo />
-          <span className="font-semibold text-slate-900">레주밍</span>
-        </div>
-        <div className="flex items-center gap-1.5 text-xs text-slate-400">
-          <span>이력서 제출</span>
-          <span>&gt;</span>
-          <span>지원 정보 입력</span>
-          <span>&gt;</span>
-          <span className="text-slate-700 font-medium">AI 코칭 받기</span>
-        </div>
+      {/* 브레드크럼 */}
+      <div className="flex items-center gap-1.5 text-xs text-slate-400 mb-4">
+        <span>이력서 제출</span>
+        <span>&gt;</span>
+        <span>지원 정보 입력</span>
+        <span>&gt;</span>
+        <span className="text-slate-700 font-medium">AI 코칭 받기</span>
       </div>
 
-      <h1 className="text-xl font-bold text-slate-900 mb-1">AI 진단 결과</h1>
+      <h1 className="text-2xl font-extrabold text-slate-900 mb-1 tracking-tight">
+        AI 진단 결과
+      </h1>
       <p className="text-sm text-slate-500 mb-6">
         지원하신 공고와 입력하신 정보를 바탕으로 맞춤 코칭을 준비했어요.
       </p>
@@ -103,7 +82,7 @@ function CoachingResultPage() {
       </div>
 
       {/* AI 추천 이력서 본문 */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 mb-6">
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-sm font-semibold text-slate-900">
             AI 추천 이력서 본문
@@ -172,50 +151,6 @@ function CoachingResultPage() {
               <li>Java/Spring 기반 프로젝트 경험으로 공고 요구사항 충족 가능</li>
               <li>협업 도구와 개발 프로세스에 대한 이해 보유</li>
             </ul>
-          </div>
-        </div>
-      </div>
-
-      {/* 추가 질문 및 요청사항 */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
-        <div className="flex items-center justify-between mb-1">
-          <h2 className="text-sm font-semibold text-slate-900">
-            추가 질문 및 요청사항
-          </h2>
-          <IconMessageCircle className="text-slate-400" />
-        </div>
-        <p className="text-xs text-slate-400 mb-3">
-          진단 결과에 대해 더 궁금한 점이나, 특정 섹션 재코칭을 원하시면
-          질문을 남겨주세요.
-        </p>
-
-        <textarea
-          value={feedback}
-          onChange={(e) => setFeedback(e.target.value)}
-          rows={3}
-          placeholder="예: 자기소개서의 성과 부분을 좀 더 구체적으로 다듬고 싶어요. / 지원 동기를 더 설득력 있게 쓰는 팁이 궁금해요."
-          className="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-[#1E2A47] resize-none mb-3"
-        />
-
-        <div className="flex items-center justify-between">
-          <p className="text-xs text-slate-400">
-            AI가 답변을 준비하는 데 약 1분 정도 소요돼요.
-          </p>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={handleSave}
-              className="flex items-center gap-1.5 border border-slate-200 text-slate-600 text-sm font-medium rounded-lg px-4 py-2 hover:bg-slate-50"
-            >
-              <IconBookmark />
-              저장하기
-            </button>
-            <button
-              onClick={handleSendRequest}
-              className="flex items-center gap-1.5 bg-[#1E2A47] text-white text-sm font-semibold rounded-lg px-4 py-2 hover:bg-[#16203A] transition-colors"
-            >
-              <IconSend />
-              내 요청 보내기
-            </button>
           </div>
         </div>
       </div>
