@@ -28,15 +28,6 @@ function CoachingLoadingPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-8">
-      {/* 브레드크럼 */}
-      <div className="flex items-center gap-1.5 text-xs text-slate-400 mb-4">
-        <span>이력서 제출</span>
-        <span>&gt;</span>
-        <span>지원 정보 입력</span>
-        <span>&gt;</span>
-        <span className="text-[#1E2A47] font-bold">AI 코칭 받기</span>
-      </div>
-
       <div className="flex flex-col items-center justify-center py-10">
         <div className="w-14 h-14 rounded-2xl bg-[#1E2A47] flex items-center justify-center mb-6">
           <IconSparkles />

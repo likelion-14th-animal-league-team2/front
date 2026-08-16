@@ -42,15 +42,6 @@ const RESUME_SKILLS = ["기획", "데이터분석", "Java/Spring", "Figma", "SQL
 function CoachingResultPage() {
   return (
     <div className="max-w-4xl mx-auto px-6 py-8">
-      {/* 브레드크럼 */}
-    <div className="flex items-center gap-1.5 text-xs text-slate-400 mb-4">
-      <span>이력서 제출</span>
-      <span>&gt;</span>
-      <span>지원 정보 입력</span>
-      <span>&gt;</span>
-      <span className="text-[#1E2A47] font-bold">AI 코칭 받기</span>
-    </div>
-
       <h1 className="text-2xl font-extrabold text-slate-900 mb-1 tracking-tight">
         AI 진단 결과
       </h1>
