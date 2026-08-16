@@ -1,11 +1,6 @@
 import { useDocuments } from "../../hooks/useDocuments";
 import { IconDocument } from "../common/icons";
 
-const STATUS_STYLE = {
-  완료: "bg-emerald-50 text-emerald-600",
-  진행중: "bg-slate-100 text-slate-600",
-};
-
 export default function DocumentList() {
   const { data: documents, isLoading, isError } = useDocuments();
 
@@ -34,26 +29,17 @@ export default function DocumentList() {
       {documents.map((doc) => (
         <div
           key={doc.id}
-          className="flex items-center justify-between rounded-lg border border-slate-100 px-3 py-2.5"
+          className="flex items-center gap-3 rounded-lg border border-slate-100 px-3 py-2.5"
         >
-          <div className="flex items-center gap-3">
-            <div className="w-7 h-7 rounded bg-slate-50 flex items-center justify-center text-slate-400">
-              <IconDocument />
-            </div>
-            <div>
-              <p className="text-sm text-slate-800">{doc.name}</p>
-              <p className="text-xs text-slate-400">
-                {doc.uploadedAt} 업로드 · {doc.type === "resume" ? "이력서" : "자소서"}
-              </p>
-            </div>
+          <div className="w-7 h-7 rounded bg-slate-50 flex items-center justify-center text-slate-400">
+            <IconDocument />
           </div>
-          <span
-            className={`text-xs px-2 py-1 rounded-md font-medium ${
-              STATUS_STYLE[doc.coachingStatus] ?? "bg-slate-50 text-slate-500"
-            }`}
-          >
-            {doc.coachingStatus}
-          </span>
+          <div>
+            <p className="text-sm text-slate-800">{doc.name}</p>
+            <p className="text-xs text-slate-400">
+              {doc.uploadedAt} 업로드 · {doc.type === "resume" ? "이력서" : "자소서"}
+            </p>
+          </div>
         </div>
       ))}
     </div>
