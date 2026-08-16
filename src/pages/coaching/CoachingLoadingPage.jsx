@@ -1,7 +1,6 @@
-//1
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { IconLogo, IconSparkles, IconCheckCircle, IconShieldCheck } from "../../components/common/icons";
+import { IconSparkles, IconCheckCircle, IconShieldCheck } from "../../components/common/icons";
 import { PATH } from "../../routes/paths";
 
 const STEPS = [
@@ -18,8 +17,8 @@ function CoachingLoadingPage() {
 
   useEffect(() => {
     if (currentStep >= STEPS.length) {
-        navigate(PATH.COACHING_RESULT);
-        return;
+      navigate(PATH.COACHING_RESULT);
+      return;
     }
     const timer = setTimeout(() => {
       setCurrentStep((prev) => prev + 1);
@@ -28,27 +27,22 @@ function CoachingLoadingPage() {
   }, [currentStep, navigate]);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="px-6 py-5 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <IconLogo />
-          <span className="font-semibold text-slate-900">레주밍</span>
-        </div>
-        <div className="flex items-center gap-1.5 text-xs text-slate-400">
-          <span>이력서 제출</span>
-          <span>&gt;</span>
-          <span>지원 정보 입력</span>
-          <span>&gt;</span>
-          <span className="text-slate-700 font-medium">AI 코칭 받기</span>
-        </div>
-      </header>
+    <div className="max-w-3xl mx-auto px-6 py-8">
+      {/* 브레드크럼 */}
+      <div className="flex items-center gap-1.5 text-xs text-slate-400 mb-4">
+        <span>이력서 제출</span>
+        <span>&gt;</span>
+        <span>지원 정보 입력</span>
+        <span>&gt;</span>
+        <span className="text-[#1E2A47] font-bold">AI 코칭 받기</span>
+      </div>
 
-      <main className="flex-1 flex flex-col items-center justify-center px-6">
+      <div className="flex flex-col items-center justify-center py-10">
         <div className="w-14 h-14 rounded-2xl bg-[#1E2A47] flex items-center justify-center mb-6">
           <IconSparkles />
         </div>
 
-        <h1 className="text-2xl font-bold text-[#1E2A47] mb-2">
+        <h1 className="text-2xl font-extrabold text-[#1E2A47] mb-2 tracking-tight">
           AI 코칭을 준비하고 있어요
         </h1>
         <p className="text-sm text-slate-500 mb-1">
@@ -106,9 +100,9 @@ function CoachingLoadingPage() {
           <IconShieldCheck />
           입력하신 정보는 AI 분석에만 활용됩니다.
         </div>
-      </main>
+      </div>
 
-      <footer className="text-center text-xs text-slate-300 py-6">
+      <footer className="text-center text-xs text-slate-300 py-8">
         © 2026 레주밍
       </footer>
     </div>
