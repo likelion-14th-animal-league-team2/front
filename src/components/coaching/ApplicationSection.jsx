@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useApplications, useApplicationStats } from "../../hooks/useApplications";
-import { IconChevronRight, IconSend } from "../common/icons";
+import { IconChevronRight } from "../common/icons";
 import { PATH } from "../../routes/paths";
 
 const STATUS_STYLE = {
@@ -63,7 +63,7 @@ export default function ApplicationSection() {
       )}
 
       {applications?.length > 0 && (
-        <div className="grid grid-cols-2 gap-3 mb-5">
+        <div className="grid grid-cols-2 gap-3">
           {applications.map((app) => (
             <div
               key={app.id}
@@ -81,21 +81,11 @@ export default function ApplicationSection() {
               </div>
               <p className="font-semibold text-slate-900 text-sm">{app.company}</p>
               <p className="text-xs text-slate-400 mb-2">{app.role}</p>
-              <div className="flex justify-between items-center">
-                <span className="text-xs text-slate-400">{app.note}</span>
-                <button className="text-xs text-[#1E2A47] font-medium">
-                  상세 보기 &gt;
-                </button>
-              </div>
+              <span className="text-xs text-slate-400">{app.note}</span>
             </div>
           ))}
         </div>
       )}
-
-      <button className="w-full bg-[#1E2A47] text-white rounded-xl py-3 text-sm font-semibold flex items-center justify-center gap-2 hover:bg-[#16203A] transition-colors">
-        <IconSend />
-        새 공고 지원하기
-      </button>
     </section>
   );
 }

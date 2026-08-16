@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import CoachingBreadcrumb from "../../components/coaching/CoachingBreadcrumb";
 import {
   IconDocument,
   IconImage,
@@ -40,13 +41,7 @@ function ResumeUpload() {
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-8">
-      <div className="flex items-center gap-1.5 text-xs text-slate-400 mb-4">
-        <Link to={PATH.MAIN} className="text-[#1E2A47] font-semibold hover:underline">
-          이력서 제출
-        </Link>
-        <span>&gt;</span>
-        <span>AI 코칭 받기</span>
-      </div>
+      <CoachingBreadcrumb current="resume" />
 
       <h1 className="text-xl font-bold text-slate-900 mb-1">새 이력서 업로드</h1>
       <p className="text-sm text-slate-500 mb-6">
@@ -163,12 +158,6 @@ function ResumeUpload() {
             첨부한 파일은 안전하게 처리됩니다.
           </p>
           <div className="flex items-center gap-2">
-            <button
-              type="button"
-              className="border border-slate-200 text-slate-600 text-sm font-medium rounded-lg px-4 py-2 hover:bg-slate-50"
-            >
-              임시 저장
-            </button>
             <button
               type="button"
               onClick={handleStartCoaching}

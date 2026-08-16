@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import CoachingBreadcrumb from "../../components/coaching/CoachingBreadcrumb";
 import {
   IconMapPin,
   IconBuilding,
@@ -55,16 +56,7 @@ function ApplicationInfoPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-8">
-      {/* 상단 브레드크럼 */}
-      <div className="flex items-center gap-1.5 text-xs text-slate-400 mb-4">
-        <Link to={PATH.MAIN} className="hover:underline">
-          이력서 제출
-        </Link>
-        <span>&gt;</span>
-        <span className="text-[#1E2A47] font-bold">지원 정보 입력</span>
-        <span>&gt;</span>
-        <span>AI 코칭 받기</span>
-      </div>  
+      <CoachingBreadcrumb current="info" />
       <h1 className="text-xl font-bold text-slate-900 mb-1">지원 정보 입력</h1>
       <p className="text-sm text-slate-500 mb-6">
         지원할 국가와 기업 정보를 입력하면 AI 코칭의 정확도가 올라가요.
