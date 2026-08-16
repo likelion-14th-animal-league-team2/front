@@ -1,12 +1,15 @@
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   IconMapPin,
   IconBuilding,
   IconDocument,
   IconFolderUpload,
-  IconArrowLeft,
+  IconUpload,
+  IconImage,
+  IconCircleCheck,
   IconArrowRight,
+  IconX,
 } from "../../components/common/icons";
 import { PATH } from "../../routes/paths";
 
@@ -41,7 +44,10 @@ function ApplicationInfoPage() {
     if (file) setScreenshotFile(file);
   };
 
+  const canStart = Boolean(screenshotFile);
+
   const handleStartCoaching = () => {
+    if (!canStart) return;
     // TODO: 지원 정보 저장 API 연동
     console.log({ ...form, screenshotFile });
     navigate(PATH.COACHING_LOADING);
@@ -50,16 +56,15 @@ function ApplicationInfoPage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-8">
       {/* 상단 브레드크럼 */}
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-1.5 text-xs text-slate-400">
-          <span>이력서 제출</span>
-          <span>&gt;</span>
-          <span className="text-slate-700 font-medium">지원 정보 입력</span>
-          <span>&gt;</span>
-          <span>AI 코칭 받기</span>
-        </div>
-      </div>
-
+      <div className="flex items-center gap-1.5 text-xs text-slate-400 mb-4">
+        <Link to={PATH.MAIN} className="hover:underline">
+          이력서 제출
+        </Link>
+        <span>&gt;</span>
+        <span className="text-[#1E2A47] font-bold">지원 정보 입력</span>
+        <span>&gt;</span>
+        <span>AI 코칭 받기</span>
+      </div>  
       <h1 className="text-xl font-bold text-slate-900 mb-1">지원 정보 입력</h1>
       <p className="text-sm text-slate-500 mb-6">
         지원할 국가와 기업 정보를 입력하면 AI 코칭의 정확도가 올라가요.
@@ -69,10 +74,12 @@ function ApplicationInfoPage() {
         {/* 지원 국가 */}
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <IconMapPin className="text-[#1E2A47]" />
+            <div className="w-8 h-8 rounded-lg bg-[#1E2A47]/5 flex items-center justify-center text-[#1E2A47]">
+              <IconMapPin />
+            </div>
             <h2 className="text-sm font-semibold text-slate-900">지원 국가</h2>
           </div>
-          <p className="text-xs text-slate-400 mb-3">
+          <p className="text-xs text-slate-400 mb-3 ml-10">
             지원하려는 국가를 입력해 주세요. 맞춤형 코칭에 반영됩니다.
           </p>
           <div className="grid grid-cols-2 gap-3">
@@ -85,7 +92,7 @@ function ApplicationInfoPage() {
                 value={form.country}
                 onChange={handleChange("country")}
                 placeholder="예) 대한민국"
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#1E2A47]"
+                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#1E2A47] bg-slate-50/50"
               />
             </div>
             <div>
@@ -95,7 +102,7 @@ function ApplicationInfoPage() {
                 value={form.city}
                 onChange={handleChange("city")}
                 placeholder="예) 서울특별시"
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#1E2A47]"
+                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#1E2A47] bg-slate-50/50"
               />
             </div>
           </div>
@@ -109,10 +116,12 @@ function ApplicationInfoPage() {
         {/* 기업 기본 정보 */}
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <IconBuilding className="text-[#1E2A47]" />
+            <div className="w-8 h-8 rounded-lg bg-[#1E2A47]/5 flex items-center justify-center text-[#1E2A47]">
+              <IconBuilding />
+            </div>
             <h2 className="text-sm font-semibold text-slate-900">기업 기본 정보</h2>
           </div>
-          <p className="text-xs text-slate-400 mb-3">
+          <p className="text-xs text-slate-400 mb-3 ml-10">
             공고에 표시된 기업 정보를 정확히 입력해 주세요.
           </p>
           <div className="grid grid-cols-2 gap-3">
@@ -125,7 +134,7 @@ function ApplicationInfoPage() {
                 value={form.companyName}
                 onChange={handleChange("companyName")}
                 placeholder="예) 네이버 주식회사"
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#1E2A47]"
+                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#1E2A47] bg-slate-50/50"
               />
             </div>
             <div>
@@ -137,7 +146,7 @@ function ApplicationInfoPage() {
                 value={form.jobTitle}
                 onChange={handleChange("jobTitle")}
                 placeholder="예) 2026 상반기 UI/UX 디자이너 채용"
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#1E2A47]"
+                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#1E2A47] bg-slate-50/50"
               />
             </div>
           </div>
@@ -146,10 +155,12 @@ function ApplicationInfoPage() {
         {/* 공고 본문 */}
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <IconDocument className="text-[#1E2A47]" />
+            <div className="w-8 h-8 rounded-lg bg-[#1E2A47]/5 flex items-center justify-center text-[#1E2A47]">
+              <IconDocument />
+            </div>
             <h2 className="text-sm font-semibold text-slate-900">공고 본문</h2>
           </div>
-          <p className="text-xs text-slate-400 mb-3">
+          <p className="text-xs text-slate-400 mb-3 ml-10">
             공고의 주요 내용을 붙여넣으면 AI 분석에 활용돼요.
           </p>
           <textarea
@@ -158,9 +169,9 @@ function ApplicationInfoPage() {
             maxLength={MAX_DESCRIPTION_LENGTH}
             rows={5}
             placeholder="예) 주요 업무, 지원 자격, 근무 조건, 채용 절차 등 공고 내용을 붙여넣어 주세요."
-            className="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-[#1E2A47] resize-none"
+            className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-[#1E2A47] resize-none bg-slate-50/50"
           />
-          <div className="flex items-center justify-between mt-1">
+          <div className="flex items-center justify-between mt-1.5">
             <p className="text-[11px] text-slate-400">
               전체 공고문을 붙여넣을수록 정확도가 정확해져요.
             </p>
@@ -170,23 +181,35 @@ function ApplicationInfoPage() {
           </div>
         </div>
 
+        <div className="flex items-center gap-3">
+          <hr className="flex-1 border-slate-200" />
+          <span className="text-xs font-bold text-slate-400">공고 스크린샷</span>
+          <hr className="flex-1 border-slate-200" />
+        </div>
+
         {/* 공고 스크린샷 업로드 */}
         <div>
-          <h2 className="text-sm font-semibold text-slate-900 mb-1">
-            공고 스크린샷 업로드
-          </h2>
-          <p className="text-xs text-slate-400 mb-3">
+          <div className="flex items-center gap-2 mb-1">
+            <div className="w-8 h-8 rounded-lg bg-[#1E2A47]/5 flex items-center justify-center text-[#1E2A47]">
+              <IconImage />
+            </div>
+            <h2 className="text-sm font-semibold text-slate-900">
+              공고 스크린샷 업로드 <span className="text-red-400">*</span>
+            </h2>
+          </div>
+          <p className="text-xs text-slate-400 mb-3 ml-10">
             공고 캡처본을 첨부하면 텍스트를 자동으로 추출해드려요.
           </p>
+
           <div
             onDrop={handleDrop}
             onDragOver={(e) => e.preventDefault()}
-            className="border-2 border-dashed border-slate-200 rounded-xl py-8 flex flex-col items-center justify-center gap-3"
+            className="border-2 border-dashed border-[#1E2A47]/20 bg-[#1E2A47]/2 rounded-xl py-8 flex flex-col items-center justify-center gap-3"
           >
             <IconFolderUpload />
             <div className="text-center">
               <p className="text-sm text-slate-600 font-medium">
-                {screenshotFile ? screenshotFile.name : "공고 캡처본을 끌어다 놓거나"}
+                공고 캡처본을 끌어다 놓거나
               </p>
               <p className="text-xs text-slate-400 mt-0.5">
                 PDF, JPG, PNG (최대 10MB)
@@ -197,6 +220,7 @@ function ApplicationInfoPage() {
               onClick={() => fileInputRef.current.click()}
               className="flex items-center gap-1.5 bg-[#1E2A47] text-white text-xs font-medium rounded-lg px-4 py-2 hover:bg-[#16203A] transition-colors"
             >
+              <IconUpload />
               스크린샷 업로드
             </button>
             <input
@@ -207,27 +231,53 @@ function ApplicationInfoPage() {
               onChange={handleFileSelect}
             />
           </div>
+
+          {screenshotFile && (
+            <div className="flex items-center justify-between bg-slate-50 rounded-xl px-4 py-3 mt-3">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-[#1E2A47] flex items-center justify-center text-white shrink-0">
+                  <IconImage width="14" height="14" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-slate-800">{screenshotFile.name}</p>
+                  <p className="text-xs text-slate-400">
+                    {(screenshotFile.size / 1024 / 1024).toFixed(1)}MB · 텍스트 추출 완료
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full whitespace-nowrap">
+                  추출됨
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setScreenshotFile(null)}
+                  aria-label="첨부 파일 삭제"
+                  className="w-6 h-6 rounded-full flex items-center justify-center text-slate-400 hover:bg-slate-200 hover:text-slate-600 transition-colors"
+                >
+                  <IconX />
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
       {/* 하단 안내 + 버튼 */}
-      <div className="flex items-center justify-between mt-5">
-        <p className="text-xs text-slate-400">
-          ✓ 입력하신 정보는 AI 분석에만 활용됩니다.
+      <div className="flex items-center justify-between flex-wrap gap-3 mt-5">
+        <p className="flex items-center gap-1.5 text-xs text-slate-500">
+          <IconCircleCheck className="text-slate-400" />
+          입력하신 정보는 AI 분석에만 활용됩니다.
         </p>
-        <div className="flex items-center gap-2">
-          <button className="flex items-center gap-1 border border-slate-200 text-slate-600 text-sm font-medium rounded-lg px-4 py-2 hover:bg-slate-50">
-            <IconArrowLeft />
-            이전 단계
-          </button>
-          <button
-            onClick={handleStartCoaching}
-            className="flex items-center gap-1.5 bg-[#1E2A47] text-white text-sm font-semibold rounded-lg px-4 py-2 hover:bg-[#16203A] transition-colors"
-          >
-            AI 코칭 시작
-            <IconArrowRight />
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={handleStartCoaching}
+          disabled={!canStart}
+          className="flex items-center gap-1.5 bg-[#1E2A47] text-white text-sm font-semibold rounded-lg px-4 py-2 hover:bg-[#16203A] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+        >
+          AI 코칭 시작
+          <IconArrowRight />
+        </button>
       </div>
 
       <footer className="text-center text-xs text-slate-300 py-8">
