@@ -9,5 +9,5 @@ export const PATH = {
   RESUME_UPLOAD: "/coaching/resume-upload",
   COACHING_LOADING: "/coaching/loading",
   COACHING_RESULT: "/coaching/result",
-  AUTH_KAKAO_CALLBACK: "/auth/kakao/callback",
+  AUTH_KAKAO_CALLBACK: "/oauth/kakao/callback",
 };
