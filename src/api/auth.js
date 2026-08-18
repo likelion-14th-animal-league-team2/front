@@ -9,3 +9,10 @@ export const completeProfile = async ({ age, country }) => {
   );
   return data;
 };
+
+export const kakaoLogin = async (code) => {
+  const { data } = await axiosInstance.get("/auth/kakao/callback", {
+    params: { code },
+  });
+  return data;
+};
