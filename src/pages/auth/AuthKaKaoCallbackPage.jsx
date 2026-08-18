@@ -1,43 +1,32 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { PATH } from "../../routes/paths";
-import { kakaoLogin } from "../../api/auth";
 
 function AuthKakaoCallbackPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    const code = searchParams.get("code");
+    const accessToken = searchParams.get("accessToken");
+    const isRegistered = searchParams.get("isRegistered") === "true";
 
-    if (!code) {
+    if (!accessToken) {
       navigate(PATH.LOGIN);
       return;
     }
 
-    kakaoLogin(code)
-      .then((res) => {
-        const { accessToken, isRegistered } = res.data;
-        localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("accessToken", accessToken);
 
-        if (isRegistered) {
-          navigate(PATH.MAIN);
-        } else {
-          navigate(PATH.ONBOARDING);
-        }
-      })
-      .catch((error) => {
-        console.error("카카오 로그인 처리 실패:", error);
-        setErrorMessage("로그인 처리 중 문제가 발생했어요.");
-      });
-  }, []);
+    if (isRegistered) {
+      navigate(PATH.MAIN);
+    } else {
+      navigate(PATH.ONBOARDING);
+    }
+  }, [searchParams, navigate]);
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <p className="text-sm text-slate-400">
-        {errorMessage || "로그인 처리 중..."}
-      </p>
+      <p className="text-sm text-slate-400">로그인 처리 중...</p>
     </div>
   );
 }
