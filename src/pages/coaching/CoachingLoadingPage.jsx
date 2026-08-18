@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import CoachingBreadcrumb from "../../components/coaching/CoachingBreadcrumb";
 import { IconSparkles, IconCheckCircle, IconShieldCheck } from "../../components/common/icons";
 import { PATH } from "../../routes/paths";
+import { requestResumeAI } from "../../api/resume";
+import { useCoachingDraftStore } from "../../store/useCoachingDraftStore";
 
 const STEPS = [
   { id: "info", label: "지원 정보 확인" },
@@ -9,25 +12,52 @@ const STEPS = [
   { id: "coaching", label: "맞춤형 코칭 생성" },
 ];
 
-const STEP_DURATION = 1500;
-
 function CoachingLoadingPage() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
+  const [errorMessage, setErrorMessage] = useState("");
+  const hasRequested = useRef(false);
+
+  const draft = useCoachingDraftStore((state) => state);
+  const setResult = useCoachingDraftStore((state) => state.setResult);
 
   useEffect(() => {
-    if (currentStep >= STEPS.length) {
-      navigate(PATH.COACHING_RESULT);
-      return;
-    }
-    const timer = setTimeout(() => {
-      setCurrentStep((prev) => prev + 1);
-    }, STEP_DURATION);
-    return () => clearTimeout(timer);
-  }, [currentStep, navigate]);
+    if (hasRequested.current) return;
+    hasRequested.current = true;
+
+    const stepTimer = setInterval(() => {
+      setCurrentStep((prev) => (prev < STEPS.length - 1 ? prev + 1 : prev));
+    }, 1200);
+
+    requestResumeAI({
+      resumeText: draft.resumeText,
+      resumeImage: draft.resumeImage,
+      jobText: draft.jobText,
+      jobImage: draft.jobImage,
+      targetCountry: draft.targetCountry,
+      targetCompany: draft.targetCompany,
+    })
+      .then((res) => {
+        setResult(res.data);
+        setCurrentStep(STEPS.length);
+        navigate(PATH.COACHING_RESULT);
+      })
+      .catch((error) => {
+        console.error("AI 코칭 요청 실패:", error);
+        setErrorMessage("코칭 결과를 불러오지 못했어요. 다시 시도해 주세요.");
+      })
+      .finally(() => {
+        clearInterval(stepTimer);
+      });
+
+    return () => clearInterval(stepTimer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-8">
+      <CoachingBreadcrumb current="loading" />
+
       <div className="flex flex-col items-center justify-center py-10">
         <div className="w-14 h-14 rounded-2xl bg-[#1E2A47] flex items-center justify-center mb-6">
           <IconSparkles />
@@ -42,6 +72,10 @@ function CoachingLoadingPage() {
         <p className="text-xs text-slate-400 mb-8">
           잠시만 기다려 주세요. 약 1~2분 정도 소요됩니다.
         </p>
+
+        {errorMessage && (
+          <p className="text-sm text-red-500 mb-6">{errorMessage}</p>
+        )}
 
         <div className="w-full max-w-md space-y-4 mb-8">
           {STEPS.map((step, index) => {

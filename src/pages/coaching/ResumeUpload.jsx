@@ -12,6 +12,7 @@ import {
   IconX,
 } from "../../components/common/icons";
 import { PATH } from "../../routes/paths";
+import { useCoachingDraftStore } from "../../store/useCoachingDraftStore";
 
 const MIN_TEXT_LENGTH = 200;
 
@@ -20,6 +21,7 @@ function ResumeUpload() {
   const fileInputRef = useRef(null);
   const [resumeText, setResumeText] = useState("");
   const [resumeFile, setResumeFile] = useState(null);
+  const setResumeDraft = useCoachingDraftStore((state) => state.setResumeDraft);
 
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
@@ -36,6 +38,7 @@ function ResumeUpload() {
   const canStart = resumeText.trim().length > 0 || Boolean(resumeFile);
 
   const handleStartCoaching = () => {
+    setResumeDraft({ resumeText, resumeImage: resumeFile });
     navigate(PATH.APPLICATION_INFO);
   };
 

@@ -13,12 +13,14 @@ import {
   IconX,
 } from "../../components/common/icons";
 import { PATH } from "../../routes/paths";
+import { useCoachingDraftStore } from "../../store/useCoachingDraftStore";
 
 const MAX_DESCRIPTION_LENGTH = 2000;
 
 function ApplicationInfoPage() {
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
+  const setApplicationDraft = useCoachingDraftStore((state) => state.setApplicationDraft);
 
   const [form, setForm] = useState({
     country: "",
@@ -49,8 +51,12 @@ function ApplicationInfoPage() {
 
   const handleStartCoaching = () => {
     if (!canStart) return;
-    // TODO: 지원 정보 저장 API 연동
-    console.log({ ...form, screenshotFile });
+    setApplicationDraft({
+      jobText: form.jobDescription,
+      jobImage: screenshotFile,
+      targetCountry: form.country,
+      targetCompany: form.companyName,
+    });
     navigate(PATH.COACHING_LOADING);
   };
 

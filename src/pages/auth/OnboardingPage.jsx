@@ -2,15 +2,15 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IconLogo, IconSearch, IconArrowRight } from "../../components/common/icons";
 import { PATH } from "../../routes/paths";
+import { completeProfile } from "../../api/auth";
 
 function OnboardingPage() {
   const navigate = useNavigate();
   const [age, setAge] = useState("");
   const [country, setCountry] = useState("");
 
-  const handleSubmit = () => {
-    // TODO: 온보딩 정보 저장 API 연동
-    console.log({ age, country });
+  const handleSubmit = async () => {
+    await completeProfile({ age: Number(age), country });
     navigate(PATH.MAIN);
   };
 

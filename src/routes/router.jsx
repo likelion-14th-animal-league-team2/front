@@ -12,6 +12,7 @@ const CoachingHistory = lazy(() => import("../pages/coaching/CoachingHistory"));
 const ResumeUpload = lazy(() => import("../pages/coaching/ResumeUpload"));
 const CoachingLoadingPage = lazy(() => import("../pages/coaching/CoachingLoadingPage"));
 const CoachingResultPage = lazy(() => import("../pages/coaching/CoachingResultPage"));
+const AuthKakaoCallbackPage = lazy(() => import("../pages/auth/AuthKakaoCallbackPage"));
 
 const withSuspense = (Component) => (
   <Suspense fallback={<div>로딩 중...</div>}>
@@ -41,5 +42,9 @@ export const router = createBrowserRouter([
   {
     path: PATH.ONBOARDING,
     element: withSuspense(OnboardingPage),
+  },
+  {
+    path: PATH.AUTH_KAKAO_CALLBACK,
+    element: withSuspense(AuthKakaoCallbackPage),
   },
 ]);

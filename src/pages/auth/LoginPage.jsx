@@ -1,18 +1,9 @@
-import { useNavigate } from "react-router-dom";
-import { IconLogo, IconDocCheck, IconGlobeArrow, IconChatBubble } from "../../components/common/icons";
-import { useAuthStore } from "../../store/useAuthStore";
-import { PATH } from "../../routes/paths";
+import { IconLogo, IconChatBubble } from "../../components/common/icons";
 
-const ACCENT_DOTS = ["#EF4444", "#2563EB", "#F59E0B", "#22C55E"];
 
 function LoginPage() {
-  const navigate = useNavigate();
-  const login = useAuthStore((state) => state.login);
-
   const handleKakaoLogin = () => {
-    // TODO: 백엔드 카카오 로그인 API 연동되면 실제 인증 플로우로 교체
-    login();
-    navigate(PATH.MAIN);
+    window.location.href = KAKAO_AUTH_URL;
   };
 
   return (
@@ -35,21 +26,6 @@ function LoginPage() {
           <br />
           국가별 이력서 형식에 맞게 자연스럽게 변환해드립니다.
         </p>
-
-        <div className="flex items-center justify-center gap-10 mb-10">
-          <IconDocCheck />
-          <IconGlobeArrow />
-        </div>
-
-        <div className="flex items-center gap-2 mb-10">
-          {ACCENT_DOTS.map((color, i) => (
-            <span
-              key={i}
-              className="w-2.5 h-2.5 rounded-full"
-              style={{ backgroundColor: color }}
-            />
-          ))}
-        </div>
 
         <button
           onClick={handleKakaoLogin}
