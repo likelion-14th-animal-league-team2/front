@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import RootLayout from "../components/layout/RootLayout";
+import RequireAuth from "../components/auth/RequireAuth";
+import GuestOnly from "../components/auth/GuestOnly";
 import { PATH } from "./paths";
 
 const MainPage = lazy(() => import("../pages/main/MainPage"));
@@ -22,22 +24,27 @@ const withSuspense = (Component) => (
 
 export const router = createBrowserRouter([
   {
-    path: PATH.HOME,
-    element: <RootLayout />,
+    element: <RequireAuth />,
     children: [
-      { index: true, element: withSuspense(MainPage) },
-      { path: PATH.MAIN.slice(1), element: withSuspense(MainPage) },
-      { path: PATH.MYPAGE.slice(1), element: withSuspense(MyPage) },
-      { path: PATH.APPLICATION_INFO.slice(1), element: withSuspense(ApplicationInfoPage) },
-      { path: PATH.COACHING_HISTORY.slice(1), element: withSuspense(CoachingHistory) },
-      { path: PATH.RESUME_UPLOAD.slice(1), element: withSuspense(ResumeUpload) },
-      { path: PATH.COACHING_LOADING.slice(1), element: withSuspense(CoachingLoadingPage) },
-      { path: PATH.COACHING_RESULT.slice(1), element: withSuspense(CoachingResultPage) },
+      {
+        path: PATH.HOME,
+        element: <RootLayout />,
+        children: [
+          { index: true, element: withSuspense(MainPage) },
+          { path: PATH.MAIN.slice(1), element: withSuspense(MainPage) },
+          { path: PATH.MYPAGE.slice(1), element: withSuspense(MyPage) },
+          { path: PATH.APPLICATION_INFO.slice(1), element: withSuspense(ApplicationInfoPage) },
+          { path: PATH.COACHING_HISTORY.slice(1), element: withSuspense(CoachingHistory) },
+          { path: PATH.RESUME_UPLOAD.slice(1), element: withSuspense(ResumeUpload) },
+          { path: PATH.COACHING_LOADING.slice(1), element: withSuspense(CoachingLoadingPage) },
+          { path: PATH.COACHING_RESULT.slice(1), element: withSuspense(CoachingResultPage) },
+        ],
+      },
     ],
   },
   {
-    path: PATH.LOGIN,
-    element: withSuspense(LoginPage),
+    element: <GuestOnly />,
+    children: [{ path: PATH.LOGIN, element: withSuspense(LoginPage) }],
   },
   {
     path: PATH.ONBOARDING,
