@@ -1,15 +1,12 @@
-import { useEffect, useRef, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { PATH } from "../../routes/paths";
-
-const KAKAO_CALLBACK_API_URL = import.meta.env.VITE_KAKAO_CALLBACK_API_URL;
+import { kakaoLogin } from "../../api/auth";
 
 function AuthKakaoCallbackPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [error, setError] = useState(false);
-  const requestedRef = useRef(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const code = searchParams.get("code");
@@ -19,25 +16,27 @@ function AuthKakaoCallbackPage() {
       return;
     }
 
-    if (requestedRef.current) return;
-    requestedRef.current = true;
-
-    axios
-      .get(KAKAO_CALLBACK_API_URL, { params: { code } })
-      .then(({ data }) => {
-        const { accessToken, isRegistered } = data.data;
+    kakaoLogin(code)
+      .then((res) => {
+        const { accessToken, isRegistered } = res.data;
         localStorage.setItem("accessToken", accessToken);
-        navigate(isRegistered ? PATH.MAIN : PATH.ONBOARDING);
+
+        if (isRegistered) {
+          navigate(PATH.MAIN);
+        } else {
+          navigate(PATH.ONBOARDING);
+        }
       })
-      .catch(() => {
-        setError(true);
+      .catch((error) => {
+        console.error("카카오 로그인 처리 실패:", error);
+        setErrorMessage("로그인 처리 중 문제가 발생했어요.");
       });
-  }, [searchParams, navigate]);
+  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center">
       <p className="text-sm text-slate-400">
-        {error ? "로그인에 실패했어요. 다시 시도해 주세요." : "로그인 처리 중..."}
+        {errorMessage || "로그인 처리 중..."}
       </p>
     </div>
   );
