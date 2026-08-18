@@ -8,6 +8,7 @@ function AuthKakaoCallbackPage() {
 
   useEffect(() => {
     const accessToken = searchParams.get("accessToken");
+    const redirectUrl = searchParams.get("redirectUrl");
     const isRegistered = searchParams.get("isRegistered") === "true";
 
     if (!accessToken) {
@@ -17,7 +18,9 @@ function AuthKakaoCallbackPage() {
 
     localStorage.setItem("accessToken", accessToken);
 
-    if (isRegistered) {
+    if (redirectUrl) {
+      navigate(redirectUrl);
+    } else if (isRegistered) {
       navigate(PATH.MAIN);
     } else {
       navigate(PATH.ONBOARDING);
