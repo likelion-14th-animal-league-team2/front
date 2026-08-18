@@ -8,20 +8,9 @@ function OnboardingPage() {
   const navigate = useNavigate();
   const [age, setAge] = useState("");
   const [country, setCountry] = useState("");
-  const [error, setError] = useState("");
 
   const handleSubmit = async () => {
-    setError("");
-    try {
-      await completeProfile({ age: Number(age), country });
-      navigate(PATH.MAIN);
-    } catch (err) {
-      console.error(err);
-      setError("정보 저장에 실패했어요. 잠시 후 다시 시도해 주세요.");
-    }
-  };
-
-  const handleSkip = () => {
+    await completeProfile({ age: Number(age), country });
     navigate(PATH.MAIN);
   };
 
@@ -80,22 +69,13 @@ function OnboardingPage() {
             </p>
           </div>
 
-          {error && <p className="text-sm text-red-500 text-center">{error}</p>}
-
           {/* 제출 */}
           <button
             onClick={handleSubmit}
             className="w-full bg-[#1E2A47] text-white rounded-xl py-3 text-sm font-semibold flex items-center justify-center gap-2 hover:bg-[#16203A] transition-colors"
           >
-            확인
+            이력서 변환 시작
             <IconArrowRight />
-          </button>
-
-          <button
-            onClick={handleSkip}
-            className="w-full text-center text-sm text-slate-400 hover:text-slate-600"
-          >
-            나중에 입력할게요
           </button>
         </div>
       </main>
