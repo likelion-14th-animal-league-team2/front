@@ -1,13 +1,21 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { IconLogo, IconSearch, IconArrowRight } from "../../components/common/icons";
 import { PATH } from "../../routes/paths";
 import { completeProfile } from "../../api/auth";
 
 function OnboardingPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [age, setAge] = useState("");
   const [country, setCountry] = useState("");
+
+  useEffect(() => {
+    const accessToken = searchParams.get("accessToken");
+    if (accessToken) {
+      localStorage.setItem("accessToken", accessToken);
+    }
+  }, [searchParams]);
 
   const handleSubmit = async () => {
     await completeProfile({ age: Number(age), country });
@@ -32,7 +40,6 @@ function OnboardingPage() {
         </p>
 
         <div className="w-full max-w-sm space-y-6">
-          {/* 나이 */}
           <div>
             <label className="block text-sm font-semibold text-slate-800 mb-2">
               나이
@@ -49,7 +56,6 @@ function OnboardingPage() {
             </div>
           </div>
 
-          {/* 거주 국가 */}
           <div>
             <label className="block text-sm font-semibold text-slate-800 mb-2">
               거주 국가
@@ -69,7 +75,6 @@ function OnboardingPage() {
             </p>
           </div>
 
-          {/* 제출 */}
           <button
             onClick={handleSubmit}
             className="w-full bg-[#1E2A47] text-white rounded-xl py-3 text-sm font-semibold flex items-center justify-center gap-2 hover:bg-[#16203A] transition-colors"
