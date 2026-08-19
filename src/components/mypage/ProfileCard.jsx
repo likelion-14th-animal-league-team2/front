@@ -7,9 +7,6 @@ export default function ProfileCard({ profile }) {
         <span className="text-2xl font-bold text-gray-800 tracking-tight">
           {profile.name}
         </span>
-        <span className="text-xs font-bold text-[#173b6b] bg-[#173b6b]/10 rounded-full px-3 py-1">
-          {profile.membership}
-        </span>
       </div>
       <p className="text-sm text-gray-500 mb-2">{profile.email}</p>
       <div className="flex items-center gap-4 text-sm text-gray-600">
