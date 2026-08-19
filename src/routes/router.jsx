@@ -54,4 +54,10 @@ export const router = createBrowserRouter([
     path: PATH.AUTH_KAKAO_CALLBACK,
     element: withSuspense(AuthKakaoCallbackPage),
   },
+  {
+    // 백엔드가 카카오 로그인 후 프론트에 없는 경로(/home 등)로 리다이렉트해도
+    // accessToken이 URL에 있으면 정상 처리되도록 하는 안전망
+    path: "*",
+    element: withSuspense(AuthKakaoCallbackPage),
+  },
 ]);
