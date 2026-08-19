@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { PATH } from "../../routes/paths";
 
 const FLOW = [
-  { key: "main", label: "메인 페이지", path: PATH.MAIN },
   { key: "resume", label: "새 이력서 업로드", path: PATH.RESUME_UPLOAD },
   { key: "info", label: "지원 정보 입력", path: PATH.APPLICATION_INFO },
   { key: "loading", label: "AI 코칭 진행 중", path: null },

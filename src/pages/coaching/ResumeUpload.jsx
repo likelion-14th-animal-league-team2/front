@@ -13,6 +13,7 @@ import {
 } from "../../components/common/icons";
 import { PATH } from "../../routes/paths";
 import { useCoachingDraftStore } from "../../store/useCoachingDraftStore";
+import { useDocumentUpload } from "../../hooks/useDocumentUpload";
 
 const MIN_TEXT_LENGTH = 200;
 
@@ -22,6 +23,7 @@ function ResumeUpload() {
   const [resumeText, setResumeText] = useState("");
   const [resumeFile, setResumeFile] = useState(null);
   const setResumeDraft = useCoachingDraftStore((state) => state.setResumeDraft);
+  const { mutate: uploadDocumentFile } = useDocumentUpload();
 
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
@@ -38,6 +40,9 @@ function ResumeUpload() {
   const canStart = resumeText.trim().length > 0 || Boolean(resumeFile);
 
   const handleStartCoaching = () => {
+    if (resumeFile) {
+      uploadDocumentFile({ file: resumeFile, type: "resume" });
+    }
     setResumeDraft({ resumeText, resumeImage: resumeFile });
     navigate(PATH.APPLICATION_INFO);
   };
