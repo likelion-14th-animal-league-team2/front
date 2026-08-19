@@ -13,8 +13,10 @@ const writeAll = (entries) => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
 };
 
+const sortKey = (entry) => entry.createdAt ?? entry.appliedAt;
+
 export const getCoachingResults = () => {
-  return [...readAll()].sort((a, b) => b.appliedAt.localeCompare(a.appliedAt));
+  return [...readAll()].sort((a, b) => sortKey(b).localeCompare(sortKey(a)));
 };
 
 export const getCoachingResultById = (id) => {
@@ -22,11 +24,13 @@ export const getCoachingResultById = (id) => {
 };
 
 export const addCoachingResult = ({ company, role, result }) => {
+  const now = new Date();
   const entry = {
     id: `${Date.now()}`,
     company,
     role,
-    appliedAt: new Date().toISOString().slice(0, 10),
+    createdAt: now.toISOString(),
+    appliedAt: now.toISOString().slice(0, 10),
     result,
   };
   try {

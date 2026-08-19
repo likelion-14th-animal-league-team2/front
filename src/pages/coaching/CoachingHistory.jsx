@@ -38,10 +38,11 @@ function CoachingHistory() {
         item.role?.toLowerCase().includes(keyword)
       );
     });
+    const sortKey = (item) => item.createdAt ?? item.appliedAt;
     return [...result].sort((a, b) =>
       sortOrder === "latest"
-        ? b.appliedAt.localeCompare(a.appliedAt)
-        : a.appliedAt.localeCompare(b.appliedAt)
+        ? sortKey(b).localeCompare(sortKey(a))
+        : sortKey(a).localeCompare(sortKey(b))
     );
   }, [history, query, sortOrder]);
 
