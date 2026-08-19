@@ -5,6 +5,7 @@ import { IconSparkles, IconCheckCircle, IconShieldCheck } from "../../components
 import { PATH } from "../../routes/paths";
 import { requestResumeAI } from "../../api/resume";
 import { useCoachingDraftStore } from "../../store/useCoachingDraftStore";
+import { addCoachingResult } from "../../utils/coachingResultStorage";
 
 const STEPS = [
   { id: "info", label: "지원 정보 확인" },
@@ -65,10 +66,15 @@ function CoachingLoadingPage() {
     })
       .then((res) => {
         setResult(res.data);
+        const entry = addCoachingResult({
+          company: draft.targetCompany,
+          role: draft.jobTitle,
+          result: res.data,
+        });
         setCurrentStep(STEPS.length - 1);
         setLastStepProgress(100);
         setTimeout(() => {
-          navigate(PATH.COACHING_RESULT);
+          navigate(`${PATH.COACHING_RESULT}?id=${entry.id}`);
         }, 400);
       })
       .catch((error) => {

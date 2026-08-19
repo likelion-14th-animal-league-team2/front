@@ -5,6 +5,7 @@ export const useCoachingDraftStore = create((set) => ({
   resumeImage: null,
   jobText: "",
   jobImage: null,
+  jobTitle: "",
   targetCountry: "",
   targetCompany: "",
   result: null,
@@ -12,8 +13,8 @@ export const useCoachingDraftStore = create((set) => ({
   setResumeDraft: ({ resumeText, resumeImage }) =>
     set({ resumeText, resumeImage }),
 
-  setApplicationDraft: ({ jobText, jobImage, targetCountry, targetCompany }) =>
-    set({ jobText, jobImage, targetCountry, targetCompany }),
+  setApplicationDraft: ({ jobText, jobImage, jobTitle, targetCountry, targetCompany }) =>
+    set({ jobText, jobImage, jobTitle, targetCountry, targetCompany }),
 
   setResult: (result) => set({ result }),
 
@@ -23,6 +24,7 @@ export const useCoachingDraftStore = create((set) => ({
       resumeImage: null,
       jobText: "",
       jobImage: null,
+      jobTitle: "",
       targetCountry: "",
       targetCompany: "",
       result: null,

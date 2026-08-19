@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import CoachingBreadcrumb from "../../components/coaching/CoachingBreadcrumb";
 import {
   IconTrendUp,
@@ -6,6 +6,7 @@ import {
   IconLightbulb,
 } from "../../components/common/icons";
 import { useCoachingDraftStore } from "../../store/useCoachingDraftStore";
+import { getCoachingResultById } from "../../utils/coachingResultStorage";
 import { PATH } from "../../routes/paths";
 
 const INSIGHT_META = [
@@ -16,7 +17,12 @@ const INSIGHT_META = [
 
 function CoachingResultPage() {
   const navigate = useNavigate();
-  const result = useCoachingDraftStore((state) => state.result);
+  const [searchParams] = useSearchParams();
+  const storeResult = useCoachingDraftStore((state) => state.result);
+
+  const id = searchParams.get("id");
+  const storedEntry = id ? getCoachingResultById(id) : null;
+  const result = storedEntry ? storedEntry.result : storeResult;
 
   if (!result) {
     return (

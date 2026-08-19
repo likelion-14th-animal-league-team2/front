@@ -29,9 +29,10 @@ export default function ApplicationSection() {
       {applications?.length > 0 && (
         <div className="grid grid-cols-2 gap-3">
           {applications.map((app) => (
-            <div
+            <Link
               key={app.id}
-              className="rounded-xl border p-3.5 bg-white border-slate-200"
+              to={`${PATH.COACHING_RESULT}?id=${app.id}`}
+              className="rounded-xl border p-3.5 bg-white border-slate-200 hover:border-[#173B6B]/40 transition-colors"
             >
               <p className="font-semibold text-sm mb-2" style={{ color: "#173B6B" }}>
                 {app.company}
@@ -40,7 +41,7 @@ export default function ApplicationSection() {
                 <span className="text-xs text-slate-400">{app.role}</span>
                 <span className="text-[11px] text-slate-400">{app.appliedAt}</span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       )}

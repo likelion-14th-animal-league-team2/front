@@ -54,6 +54,7 @@ function ApplicationInfoPage() {
     setApplicationDraft({
       jobText: form.jobDescription,
       jobImage: screenshotFile,
+      jobTitle: form.jobTitle,
       targetCountry: form.country,
       targetCompany: form.companyName,
     });
