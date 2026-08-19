@@ -8,15 +8,7 @@ export default function DocumentList() {
     return <p className="text-sm text-slate-400 py-4">불러오는 중...</p>;
   }
 
-  if (isError) {
-    return (
-      <p className="text-sm text-red-500 py-4">
-        문서 목록을 불러오지 못했어요. 다시 시도해주세요.
-      </p>
-    );
-  }
-
-  if (!documents || documents.length === 0) {
+  if (isError || !documents || documents.length === 0) {
     return (
       <p className="text-sm text-slate-400 py-4">
         아직 제출한 문서가 없어요. 이력서나 자소서를 업로드해보세요.

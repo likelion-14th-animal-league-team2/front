@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import { PATH } from "../../routes/paths";
-import { IconLogo, IconUser } from "../common/icons";
+import { IconUser } from "../common/icons";
+import logo from "../../assets/logo.png";
 
 function Header() {
   return (
     <header className="flex items-center justify-between gap-2 px-6 py-4 border-b border-slate-100">
       <Link to={PATH.MAIN} className="flex items-center gap-2">
-        <IconLogo />
-        <span className="font-semibold text-slate-900">레주밍</span>
+        <img src={logo} alt="레주밍" className="h-14 w-auto" />
       </Link>
       <Link
         to={PATH.MYPAGE}
