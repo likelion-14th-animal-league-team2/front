@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { IconUser } from "../common/icons";
+import { useUpdateMyProfile } from "../../hooks/useUser";
 
 export default function AccountInfoCard({ profile }) {
   const [overrides, setOverrides] = useState({});
   const [editingField, setEditingField] = useState(null);
   const [draft, setDraft] = useState("");
+  const updateProfile = useUpdateMyProfile();
 
   const values = { ...profile, ...overrides };
 
@@ -21,7 +23,6 @@ export default function AccountInfoCard({ profile }) {
       label: "닉네임",
       desc: "레주밍에서 사용하는 닉네임입니다.",
       value: values.name,
-      editable: true,
     },
     {
       key: "age",
@@ -53,6 +54,12 @@ export default function AccountInfoCard({ profile }) {
 
   const saveEdit = (row) => {
     const nextValue = row.type === "number" ? Number(draft) : draft;
+
+    updateProfile.mutate({
+      age: row.key === "age" ? nextValue : values.age,
+      country: row.key === "country" ? nextValue : values.country,
+    });
+
     setOverrides((prev) => ({ ...prev, [row.key]: nextValue }));
     setEditingField(null);
     setDraft("");
