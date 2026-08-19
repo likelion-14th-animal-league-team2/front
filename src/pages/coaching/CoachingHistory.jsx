@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { useCoachingHistory } from "../../hooks/useCoachingHistory";
+import { useCoachingHistory, useDeleteCoachingHistory } from "../../hooks/useCoachingHistory";
 import { PATH } from "../../routes/paths";
 import {
   IconDocument,
@@ -10,6 +10,7 @@ import {
   IconChevronDown,
   IconChevronLeft,
   IconChevronRight,
+  IconX,
 } from "../../components/common/icons";
 
 const PAGE_SIZE = 3;
@@ -24,9 +25,16 @@ const summarize = (text) => {
 
 function CoachingHistory() {
   const { data: history, isLoading, isError } = useCoachingHistory();
+  const { mutate: deleteHistory } = useDeleteCoachingHistory();
   const [query, setQuery] = useState("");
   const [sortOrder, setSortOrder] = useState("latest");
   const [page, setPage] = useState(1);
+
+  const handleDelete = (item) => {
+    if (window.confirm(`'${item.company}' 코칭 결과를 삭제할까요? 되돌릴 수 없어요.`)) {
+      deleteHistory(item.id);
+    }
+  };
 
   const filtered = useMemo(() => {
     if (!history) return [];
@@ -140,7 +148,17 @@ function CoachingHistory() {
                   </p>
                 </div>
               </div>
-              <span className="text-xs text-slate-400 whitespace-nowrap">{item.appliedAt}</span>
+              <div className="flex items-center gap-2 shrink-0">
+                <span className="text-xs text-slate-400 whitespace-nowrap">{item.appliedAt}</span>
+                <button
+                  type="button"
+                  onClick={() => handleDelete(item)}
+                  aria-label="코칭 결과 삭제"
+                  className="w-6 h-6 rounded-full flex items-center justify-center text-slate-400 hover:bg-red-50 hover:text-red-500 transition-colors"
+                >
+                  <IconX width="12" height="12" />
+                </button>
+              </div>
             </div>
 
             <div className="mt-4 flex items-center justify-end gap-4 flex-wrap">

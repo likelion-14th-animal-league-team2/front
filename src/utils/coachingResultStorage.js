@@ -23,6 +23,10 @@ export const getCoachingResultById = (id) => {
   return readAll().find((entry) => entry.id === id) ?? null;
 };
 
+export const deleteCoachingResult = (id) => {
+  writeAll(readAll().filter((entry) => entry.id !== id));
+};
+
 export const addCoachingResult = ({ company, role, result }) => {
   const now = new Date();
   const entry = {

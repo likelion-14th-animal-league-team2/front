@@ -1,6 +1,10 @@
 // TODO: 백엔드 팀 API 연동되면 getCoachingResults 대신 axiosInstance.get(...) 호출로 교체
-import { getCoachingResults } from "../utils/coachingResultStorage";
+import { getCoachingResults, deleteCoachingResult } from "../utils/coachingResultStorage";
 
 export const getCoachingHistory = async () => {
   return getCoachingResults(); // [{ id, company, role, appliedAt, result }]
+};
+
+export const removeCoachingHistory = async (id) => {
+  deleteCoachingResult(id);
 };
