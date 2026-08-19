@@ -11,8 +11,6 @@ import {
   IconChevronDown,
   IconChevronLeft,
   IconChevronRight,
-  IconCircleCheck,
-  IconStar,
   IconClock,
 } from "../../components/common/icons";
 
@@ -180,27 +178,13 @@ function CoachingHistory() {
                     style={{ width: `${item.progress}%` }}
                   />
                 </div>
-                <span className="text-xs font-bold text-[#1E2A47] whitespace-nowrap">
-                  {item.step}/{item.totalSteps} 단계
-                </span>
                 <span className="flex items-center gap-1 text-[11px] text-slate-400 whitespace-nowrap">
                   <IconClock />
                   코칭 응답 대기 중
                 </span>
               </div>
             ) : (
-              <div className="mt-4 flex items-center justify-between gap-4 flex-wrap">
-                <div className="flex items-center gap-4">
-                  <span className="flex items-center gap-1.5 text-xs text-slate-600">
-                    <IconCircleCheck className="text-emerald-500" />
-                    <span className="font-extrabold text-slate-800">{item.issueCount}개</span> 개선
-                    포인트 발견
-                  </span>
-                  <span className="flex items-center gap-1.5 text-xs text-slate-600">
-                    <IconStar className="text-amber-400" />
-                    종합 평가 <span className="font-extrabold text-slate-800">{item.grade}</span>
-                  </span>
-                </div>
+              <div className="mt-4 flex items-center justify-end gap-4 flex-wrap">
                 <button className="flex items-center gap-1 text-xs font-bold text-[#1E2A47] hover:underline">
                   코칭 결과 보기
                   <IconChevronRight />
