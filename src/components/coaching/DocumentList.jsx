@@ -9,11 +9,7 @@ export default function DocumentList() {
   }
 
   if (isError || !documents || documents.length === 0) {
-    return (
-      <p className="text-sm text-slate-400 py-4">
-        아직 제출한 문서가 없어요. 이력서나 자소서를 업로드해보세요.
-      </p>
-    );
+    return null;
   }
 
   return (

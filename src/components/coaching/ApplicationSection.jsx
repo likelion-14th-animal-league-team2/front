@@ -26,12 +26,6 @@ export default function ApplicationSection() {
           지원 내역을 불러오지 못했어요.
         </p>
       )}
-      {!isLoading && applications?.length === 0 && (
-        <p className="text-sm text-slate-400 py-4">
-          아직 지원한 공고가 없어요.
-        </p>
-      )}
-
       {applications?.length > 0 && (
         <div className="grid grid-cols-2 gap-3">
           {applications.map((app) => (
