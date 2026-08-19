@@ -6,7 +6,7 @@ export default function DocumentUploadButton() {
   return (
     <Link
       to={PATH.RESUME_UPLOAD}
-      className="w-full border-2 border-dashed border-[#1E2A47]/40 rounded-xl py-4 flex items-center justify-center gap-2 text-[#1E2A47] text-sm font-semibold hover:bg-[#1E2A47]/5 transition-colors"
+      className="w-full rounded-xl py-4 flex items-center justify-center gap-2 text-white text-sm font-semibold transition-colors bg-[#173B6B] hover:bg-[#12305A]"
     >
       <IconUpload />
       이력서·자소서 제출
