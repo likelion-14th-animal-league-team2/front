@@ -29,11 +29,11 @@ function CoachingHistory() {
   const [query, setQuery] = useState("");
   const [sortOrder, setSortOrder] = useState("latest");
   const [page, setPage] = useState(1);
+  const [deleteTarget, setDeleteTarget] = useState(null);
 
-  const handleDelete = (item) => {
-    if (window.confirm(`'${item.company}' 코칭 결과를 삭제할까요? 되돌릴 수 없어요.`)) {
-      deleteHistory(item.id);
-    }
+  const confirmDelete = () => {
+    deleteHistory(deleteTarget.id);
+    setDeleteTarget(null);
   };
 
   const filtered = useMemo(() => {
@@ -152,7 +152,7 @@ function CoachingHistory() {
                 <span className="text-xs text-slate-400 whitespace-nowrap">{item.appliedAt}</span>
                 <button
                   type="button"
-                  onClick={() => handleDelete(item)}
+                  onClick={() => setDeleteTarget(item)}
                   aria-label="코칭 결과 삭제"
                   className="w-6 h-6 rounded-full flex items-center justify-center text-slate-400 hover:bg-red-50 hover:text-red-500 transition-colors"
                 >
@@ -210,6 +210,35 @@ function CoachingHistory() {
       )}
 
       <footer className="text-center text-xs text-slate-300 py-8">© 2026 레주밍</footer>
+
+      {deleteTarget && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+          <div className="bg-white rounded-2xl p-6 w-80">
+            <p className="text-base font-bold text-gray-800 mb-1">
+              코칭 결과를 삭제할까요?
+            </p>
+            <p className="text-sm text-gray-500 mb-5">
+              '{deleteTarget.company}' 코칭 결과가 영구적으로 삭제되며 되돌릴 수 없어요.
+            </p>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => setDeleteTarget(null)}
+                className="flex-1 border border-gray-200 rounded-lg py-2.5 text-sm font-bold text-gray-600 hover:bg-gray-50"
+              >
+                취소
+              </button>
+              <button
+                type="button"
+                onClick={confirmDelete}
+                className="flex-1 bg-[#e7000b] text-white rounded-lg py-2.5 text-sm font-bold hover:bg-[#c60009]"
+              >
+                삭제
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
