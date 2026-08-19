@@ -6,31 +6,25 @@ import {
   IconDocument,
   IconSearch,
   IconPlus,
-  IconFilter,
   IconSort,
   IconChevronDown,
   IconChevronLeft,
   IconChevronRight,
-  IconClock,
 } from "../../components/common/icons";
 
 const PAGE_SIZE = 3;
+const SUMMARY_MAX_LENGTH = 80;
 
-const TYPE_LABEL = { resume: "이력서", coverletter: "자소서" };
-const TYPE_STYLE = {
-  resume: "bg-[#1E2A47]/10 text-[#1E2A47]",
-  coverletter: "bg-emerald-50 text-emerald-600",
-};
-const STATUS_LABEL = { inProgress: "진행 중", completed: "피드백 완료" };
-const STATUS_STYLE = {
-  inProgress: "bg-amber-50 text-amber-600",
-  completed: "bg-emerald-50 text-emerald-600",
+const summarize = (text) => {
+  if (!text) return "";
+  return text.length > SUMMARY_MAX_LENGTH
+    ? `${text.slice(0, SUMMARY_MAX_LENGTH)}...`
+    : text;
 };
 
 function CoachingHistory() {
   const { data: history, isLoading, isError } = useCoachingHistory();
   const [query, setQuery] = useState("");
-  const [typeFilter, setTypeFilter] = useState("all");
   const [sortOrder, setSortOrder] = useState("latest");
   const [page, setPage] = useState(1);
 
@@ -38,17 +32,18 @@ function CoachingHistory() {
     if (!history) return [];
     const keyword = query.trim().toLowerCase();
     const result = history.filter((item) => {
-      const matchesQuery =
-        !keyword ||
-        item.fileName.toLowerCase().includes(keyword) ||
-        item.summary.toLowerCase().includes(keyword);
-      const matchesType = typeFilter === "all" || item.type === typeFilter;
-      return matchesQuery && matchesType;
+      if (!keyword) return true;
+      return (
+        item.company?.toLowerCase().includes(keyword) ||
+        item.role?.toLowerCase().includes(keyword)
+      );
     });
     return [...result].sort((a, b) =>
-      sortOrder === "latest" ? b.date.localeCompare(a.date) : a.date.localeCompare(b.date)
+      sortOrder === "latest"
+        ? b.appliedAt.localeCompare(a.appliedAt)
+        : a.appliedAt.localeCompare(b.appliedAt)
     );
-  }, [history, query, typeFilter, sortOrder]);
+  }, [history, query, sortOrder]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
@@ -56,11 +51,6 @@ function CoachingHistory() {
 
   const handleQueryChange = (e) => {
     setQuery(e.target.value);
-    setPage(1);
-  };
-
-  const handleTypeFilterChange = (e) => {
-    setTypeFilter(e.target.value);
     setPage(1);
   };
 
@@ -82,7 +72,7 @@ function CoachingHistory() {
               type="text"
               value={query}
               onChange={handleQueryChange}
-              placeholder="파일명 또는 코칭 내용 검색"
+              placeholder="기업명 또는 직무 검색"
               className="w-64 border border-slate-200 rounded-xl pl-9 pr-3 py-2.5 text-sm outline-none focus:border-[#1E2A47]"
             />
           </div>
@@ -103,32 +93,17 @@ function CoachingHistory() {
         <p className="text-sm text-slate-500">
           총 <span className="font-extrabold text-[#1E2A47]">{filtered.length}건</span>의 코칭 기록
         </p>
-        <div className="flex items-center gap-2">
-          <div className="relative">
-            <IconFilter className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
-            <select
-              value={typeFilter}
-              onChange={handleTypeFilterChange}
-              className="appearance-none border border-slate-200 rounded-lg pl-7 pr-7 py-2 text-xs font-bold text-slate-600 outline-none cursor-pointer"
-            >
-              <option value="all">전체 유형</option>
-              <option value="resume">이력서</option>
-              <option value="coverletter">자소서</option>
-            </select>
-            <IconChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
-          </div>
-          <div className="relative">
-            <IconSort className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
-            <select
-              value={sortOrder}
-              onChange={handleSortChange}
-              className="appearance-none border border-slate-200 rounded-lg pl-7 pr-7 py-2 text-xs font-bold text-slate-600 outline-none cursor-pointer"
-            >
-              <option value="latest">최신순</option>
-              <option value="oldest">오래된순</option>
-            </select>
-            <IconChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
-          </div>
+        <div className="relative">
+          <IconSort className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+          <select
+            value={sortOrder}
+            onChange={handleSortChange}
+            className="appearance-none border border-slate-200 rounded-lg pl-7 pr-7 py-2 text-xs font-bold text-slate-600 outline-none cursor-pointer"
+          >
+            <option value="latest">최신순</option>
+            <option value="oldest">오래된순</option>
+          </select>
+          <IconChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
         </div>
       </div>
 
@@ -137,7 +112,9 @@ function CoachingHistory() {
         <p className="text-sm text-red-500 py-8 text-center">코칭 내역을 불러오지 못했어요.</p>
       )}
       {!isLoading && !isError && pageItems.length === 0 && (
-        <p className="text-sm text-slate-400 py-8 text-center">조건에 맞는 코칭 기록이 없어요.</p>
+        <p className="text-sm text-slate-400 py-8 text-center">
+          {history?.length === 0 ? "아직 받은 코칭이 없어요." : "조건에 맞는 코칭 기록이 없어요."}
+        </p>
       )}
 
       <div className="space-y-3">
@@ -145,52 +122,35 @@ function CoachingHistory() {
           <div key={item.id} className="bg-white rounded-2xl border border-slate-200 p-6">
             <div className="flex items-start justify-between gap-4">
               <div className="flex gap-3">
-                <div
-                  className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 ${TYPE_STYLE[item.type]}`}
-                >
+                <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-[#173B6B]/10 text-[#173B6B]">
                   <IconDocument width="18" height="18" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2 flex-wrap">
-                    <p className="font-extrabold text-slate-800 text-[15px]">{item.fileName}</p>
-                    <span
-                      className={`text-xs px-2.5 py-0.5 rounded-full font-bold ${TYPE_STYLE[item.type]}`}
-                    >
-                      {TYPE_LABEL[item.type]}
-                    </span>
-                    <span
-                      className={`text-xs px-2.5 py-0.5 rounded-full font-bold ${STATUS_STYLE[item.status]}`}
-                    >
-                      {STATUS_LABEL[item.status]}
-                    </span>
+                    <p className="font-extrabold text-slate-800 text-[15px]">{item.company}</p>
+                    {item.role && (
+                      <span className="text-xs px-2.5 py-0.5 rounded-full font-bold bg-slate-100 text-slate-600">
+                        {item.role}
+                      </span>
+                    )}
                   </div>
-                  <p className="text-sm text-slate-500 mt-1.5">{item.summary}</p>
+                  <p className="text-sm text-slate-500 mt-1.5">
+                    {summarize(item.result?.personalizedCoachingInsight)}
+                  </p>
                 </div>
               </div>
-              <span className="text-xs text-slate-400 whitespace-nowrap">{item.date}</span>
+              <span className="text-xs text-slate-400 whitespace-nowrap">{item.appliedAt}</span>
             </div>
 
-            {item.status === "inProgress" ? (
-              <div className="mt-4 flex items-center gap-3">
-                <div className="flex-1 h-1.5 rounded-full bg-slate-100 overflow-hidden">
-                  <div
-                    className="h-full rounded-full bg-[#1E2A47]"
-                    style={{ width: `${item.progress}%` }}
-                  />
-                </div>
-                <span className="flex items-center gap-1 text-[11px] text-slate-400 whitespace-nowrap">
-                  <IconClock />
-                  코칭 응답 대기 중
-                </span>
-              </div>
-            ) : (
-              <div className="mt-4 flex items-center justify-end gap-4 flex-wrap">
-                <button className="flex items-center gap-1 text-xs font-bold text-[#1E2A47] hover:underline">
-                  코칭 결과 보기
-                  <IconChevronRight />
-                </button>
-              </div>
-            )}
+            <div className="mt-4 flex items-center justify-end gap-4 flex-wrap">
+              <Link
+                to={`${PATH.COACHING_RESULT}?id=${item.id}`}
+                className="flex items-center gap-1 text-xs font-bold text-[#1E2A47] hover:underline"
+              >
+                코칭 결과 보기
+                <IconChevronRight />
+              </Link>
+            </div>
           </div>
         ))}
       </div>
