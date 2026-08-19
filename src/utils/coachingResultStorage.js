@@ -29,6 +29,10 @@ export const addCoachingResult = ({ company, role, result }) => {
     appliedAt: new Date().toISOString().slice(0, 10),
     result,
   };
-  writeAll([...readAll(), entry]);
+  try {
+    writeAll([...readAll(), entry]);
+  } catch (error) {
+    console.warn("코칭 결과 저장 실패 (지원 내역 카드에 안 남을 수 있음):", error);
+  }
   return entry;
 };
