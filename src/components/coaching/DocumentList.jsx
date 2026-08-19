@@ -4,11 +4,7 @@ import { IconDocument } from "../common/icons";
 export default function DocumentList() {
   const { data: documents, isLoading, isError } = useDocuments();
 
-  if (isLoading) {
-    return <p className="text-sm text-slate-400 py-4">불러오는 중...</p>;
-  }
-
-  if (isError || !documents || documents.length === 0) {
+  if (isLoading || isError || !documents || documents.length === 0) {
     return null;
   }
 

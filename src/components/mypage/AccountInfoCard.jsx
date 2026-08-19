@@ -98,6 +98,10 @@ export default function AccountInfoCard({ profile }) {
                   type={row.type ?? "text"}
                   value={draft}
                   onChange={(e) => setDraft(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") saveEdit(row);
+                    if (e.key === "Escape") cancelEdit();
+                  }}
                   autoFocus
                   className="w-36 border border-gray-200 rounded-lg px-2.5 py-1.5 text-sm outline-none focus:border-[#173b6b]"
                 />
