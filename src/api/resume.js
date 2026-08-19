@@ -34,6 +34,7 @@ export const requestResumeAI = async ({
 
   const { data } = await axiosInstance.post("/resume/ai", formData, {
     headers: { "Content-Type": "multipart/form-data" },
+    timeout: 120000,
   });
   return data;
 };

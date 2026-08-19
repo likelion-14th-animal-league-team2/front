@@ -12,9 +12,14 @@ const STEPS = [
   { id: "coaching", label: "맞춤형 코칭 생성" },
 ];
 
+const STEP_INTERVAL = 1400;
+const LAST_STEP_MAX_PROGRESS = 90;
+const LAST_STEP_TICK = 400;
+
 function CoachingLoadingPage() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
+  const [lastStepProgress, setLastStepProgress] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const hasRequested = useRef(false);
 
@@ -25,9 +30,30 @@ function CoachingLoadingPage() {
     if (hasRequested.current) return;
     hasRequested.current = true;
 
-    const stepTimer = setInterval(() => {
-      setCurrentStep((prev) => (prev < STEPS.length - 1 ? prev + 1 : prev));
-    }, 1200);
+    let stepTimer;
+    let lastStepTimer;
+
+    stepTimer = setInterval(() => {
+      setCurrentStep((prev) => {
+        if (prev < STEPS.length - 1) return prev + 1;
+        clearInterval(stepTimer);
+        return prev;
+      });
+    }, STEP_INTERVAL);
+
+    const startLastStepAnimation = () => {
+      lastStepTimer = setInterval(() => {
+        setLastStepProgress((prev) => {
+          if (prev >= LAST_STEP_MAX_PROGRESS) return prev;
+          return prev + 2;
+        });
+      }, LAST_STEP_TICK);
+    };
+
+    const lastStepDelay = setTimeout(
+      startLastStepAnimation,
+      STEP_INTERVAL * (STEPS.length - 1)
+    );
 
     requestResumeAI({
       resumeText: draft.resumeText,
@@ -39,8 +65,11 @@ function CoachingLoadingPage() {
     })
       .then((res) => {
         setResult(res.data);
-        setCurrentStep(STEPS.length);
-        navigate(PATH.COACHING_RESULT);
+        setCurrentStep(STEPS.length - 1);
+        setLastStepProgress(100);
+        setTimeout(() => {
+          navigate(PATH.COACHING_RESULT);
+        }, 400);
       })
       .catch((error) => {
         console.error("AI 코칭 요청 실패:", error);
@@ -48,9 +77,15 @@ function CoachingLoadingPage() {
       })
       .finally(() => {
         clearInterval(stepTimer);
+        clearInterval(lastStepTimer);
+        clearTimeout(lastStepDelay);
       });
 
-    return () => clearInterval(stepTimer);
+    return () => {
+      clearInterval(stepTimer);
+      clearInterval(lastStepTimer);
+      clearTimeout(lastStepDelay);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -81,6 +116,15 @@ function CoachingLoadingPage() {
           {STEPS.map((step, index) => {
             const isDone = index < currentStep;
             const isActive = index === currentStep;
+            const isLastStep = index === STEPS.length - 1;
+
+            let barWidth = "0%";
+            if (isDone) {
+              barWidth = "100%";
+            } else if (isActive) {
+              barWidth = isLastStep ? `${lastStepProgress}%` : "50%";
+            }
+
             return (
               <div key={step.id}>
                 <div className="flex items-center justify-between mb-1.5">
@@ -107,13 +151,10 @@ function CoachingLoadingPage() {
                 </div>
                 <div className="h-1 rounded-full bg-slate-100 overflow-hidden">
                   <div
-                    className={`h-full rounded-full transition-all duration-700 ${
-                      isDone
-                        ? "w-full bg-emerald-500"
-                        : isActive
-                        ? "w-1/2 bg-[#1E2A47]"
-                        : "w-0"
+                    className={`h-full rounded-full transition-all duration-500 ${
+                      isDone ? "bg-emerald-500" : "bg-[#1E2A47]"
                     }`}
+                    style={{ width: barWidth }}
                   />
                 </div>
               </div>
