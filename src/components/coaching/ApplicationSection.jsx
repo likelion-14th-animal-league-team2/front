@@ -19,7 +19,7 @@ export default function ApplicationSection() {
     <section className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 mt-4">
       <div className="flex items-center justify-between mb-3">
         <h2 className="font-semibold text-slate-900 text-[15px]">
-          공고 지원 내역
+          AI 코칭 내역
         </h2>
         <Link
           to={PATH.COACHING_HISTORY}
