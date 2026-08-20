@@ -24,9 +24,7 @@ function ApplicationInfoPage() {
 
   const [form, setForm] = useState({
     country: "",
-    city: "",
     companyName: "",
-    jobTitle: "",
     jobDescription: "",
   });
   const [screenshotFile, setScreenshotFile] = useState(null);
@@ -54,7 +52,6 @@ function ApplicationInfoPage() {
     setApplicationDraft({
       jobText: form.jobDescription,
       jobImage: screenshotFile,
-      jobTitle: form.jobTitle,
       targetCountry: form.country,
       targetCompany: form.companyName,
     });
@@ -81,29 +78,17 @@ function ApplicationInfoPage() {
           <p className="text-xs text-slate-400 mb-3 ml-10">
             지원하려는 국가를 입력해 주세요. 맞춤형 코칭에 반영됩니다.
           </p>
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="block text-xs text-slate-500 mb-1">
-                국가명 <span className="text-red-400">*</span>
-              </label>
-              <input
-                type="text"
-                value={form.country}
-                onChange={handleChange("country")}
-                placeholder="예) 대한민국"
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#1E2A47] bg-slate-50/50"
-              />
-            </div>
-            <div>
-              <label className="block text-xs text-slate-500 mb-1">도시 (선택)</label>
-              <input
-                type="text"
-                value={form.city}
-                onChange={handleChange("city")}
-                placeholder="예) 서울특별시"
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#1E2A47] bg-slate-50/50"
-              />
-            </div>
+          <div>
+            <label className="block text-xs text-slate-500 mb-1">
+              국가명 <span className="text-red-400">*</span>
+            </label>
+            <input
+              type="text"
+              value={form.country}
+              onChange={handleChange("country")}
+              placeholder="예) 대한민국"
+              className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#1E2A47] bg-slate-50/50"
+            />
           </div>
           <p className="text-[11px] text-slate-400 mt-2">
             국가별 트렌드와 채용 관행이 AI 코칭에 반영돼요.
@@ -123,31 +108,17 @@ function ApplicationInfoPage() {
           <p className="text-xs text-slate-400 mb-3 ml-10">
             공고에 표시된 기업 정보를 정확히 입력해 주세요.
           </p>
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="block text-xs text-slate-500 mb-1">
-                기업명 <span className="text-red-400">*</span>
-              </label>
-              <input
-                type="text"
-                value={form.companyName}
-                onChange={handleChange("companyName")}
-                placeholder="예) 네이버 주식회사"
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#1E2A47] bg-slate-50/50"
-              />
-            </div>
-            <div>
-              <label className="block text-xs text-slate-500 mb-1">
-                공고 제목 <span className="text-red-400">*</span>
-              </label>
-              <input
-                type="text"
-                value={form.jobTitle}
-                onChange={handleChange("jobTitle")}
-                placeholder="예) 2026 상반기 UI/UX 디자이너 채용"
-                className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#1E2A47] bg-slate-50/50"
-              />
-            </div>
+          <div>
+            <label className="block text-xs text-slate-500 mb-1">
+              기업명 <span className="text-red-400">*</span>
+            </label>
+            <input
+              type="text"
+              value={form.companyName}
+              onChange={handleChange("companyName")}
+              placeholder="예) 네이버 주식회사"
+              className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#1E2A47] bg-slate-50/50"
+            />
           </div>
         </div>
 
