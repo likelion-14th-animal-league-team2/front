@@ -14,6 +14,7 @@ import {
 } from "../../components/common/icons";
 import { PATH } from "../../routes/paths";
 import { useCoachingDraftStore } from "../../store/useCoachingDraftStore";
+import { COUNTRIES } from "../../constants/countries";
 
 const MAX_DESCRIPTION_LENGTH = 2000;
 
@@ -76,19 +77,27 @@ function ApplicationInfoPage() {
             <h2 className="text-sm font-semibold text-slate-900">지원 국가</h2>
           </div>
           <p className="text-xs text-slate-400 mb-3 ml-10">
-            지원하려는 국가를 입력해 주세요. 맞춤형 코칭에 반영됩니다.
+            지원하려는 국가를 선택해 주세요. 맞춤형 코칭에 반영됩니다.
           </p>
           <div>
             <label className="block text-xs text-slate-500 mb-1">
               국가명 <span className="text-red-400">*</span>
             </label>
-            <input
-              type="text"
+            <select
               value={form.country}
               onChange={handleChange("country")}
-              placeholder="예) 대한민국"
+              size={6}
               className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#1E2A47] bg-slate-50/50"
-            />
+            >
+              <option value="" disabled>
+                국가를 선택해 주세요
+              </option>
+              {COUNTRIES.map((country) => (
+                <option key={country} value={country}>
+                  {country}
+                </option>
+              ))}
+            </select>
           </div>
           <p className="text-[11px] text-slate-400 mt-2">
             국가별 트렌드와 채용 관행이 AI 코칭에 반영돼요.
