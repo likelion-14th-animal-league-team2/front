@@ -14,7 +14,7 @@ import {
 } from "../../components/common/icons";
 import { PATH } from "../../routes/paths";
 import { useCoachingDraftStore } from "../../store/useCoachingDraftStore";
-import { COUNTRIES } from "../../constants/countries";
+import CountrySelect from "../../components/coaching/CountrySelect";
 
 const MAX_DESCRIPTION_LENGTH = 2000;
 
@@ -32,6 +32,10 @@ function ApplicationInfoPage() {
 
   const handleChange = (field) => (e) => {
     setForm((prev) => ({ ...prev, [field]: e.target.value }));
+  };
+
+  const handleCountryChange = (country) => {
+    setForm((prev) => ({ ...prev, country }));
   };
 
   const handleFileSelect = (e) => {
@@ -83,21 +87,7 @@ function ApplicationInfoPage() {
             <label className="block text-xs text-slate-500 mb-1">
               국가명 <span className="text-red-400">*</span>
             </label>
-            <select
-              value={form.country}
-              onChange={handleChange("country")}
-              size={6}
-              className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#1E2A47] bg-slate-50/50"
-            >
-              <option value="" disabled>
-                국가를 선택해 주세요
-              </option>
-              {COUNTRIES.map((country) => (
-                <option key={country} value={country}>
-                  {country}
-                </option>
-              ))}
-            </select>
+            <CountrySelect value={form.country} onChange={handleCountryChange} />
           </div>
           <p className="text-[11px] text-slate-400 mt-2">
             국가별 트렌드와 채용 관행이 AI 코칭에 반영돼요.
