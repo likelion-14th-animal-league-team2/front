@@ -15,12 +15,11 @@ export default function CountrySelect({ value, onChange }) {
     const handleClickOutside = (e) => {
       if (containerRef.current && !containerRef.current.contains(e.target)) {
         setIsOpen(false);
-        setQuery(value || "");
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [value]);
+  }, []);
 
   const filtered = COUNTRIES.filter((country) => country.includes(query.trim()));
 
