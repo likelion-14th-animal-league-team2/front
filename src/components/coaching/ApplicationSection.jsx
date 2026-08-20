@@ -3,6 +3,15 @@ import { useApplications } from "../../hooks/useApplications";
 import { IconChevronRight } from "../common/icons";
 import { PATH } from "../../routes/paths";
 
+const SUMMARY_MAX_LENGTH = 44;
+
+const summarize = (text) => {
+  if (!text) return "";
+  return text.length > SUMMARY_MAX_LENGTH
+    ? `${text.slice(0, SUMMARY_MAX_LENGTH)}...`
+    : text;
+};
+
 export default function ApplicationSection() {
   const { data: applications, isLoading, isError } = useApplications();
 
@@ -34,8 +43,11 @@ export default function ApplicationSection() {
               to={`${PATH.COACHING_RESULT}?id=${app.id}`}
               className="rounded-xl border p-3.5 bg-white border-slate-200 hover:border-[#173B6B]/40 transition-colors"
             >
-              <p className="font-semibold text-sm mb-2" style={{ color: "#173B6B" }}>
+              <p className="font-semibold text-sm mb-1" style={{ color: "#173B6B" }}>
                 {app.company}
+              </p>
+              <p className="text-xs text-slate-500 mb-2">
+                {summarize(app.result?.personalizedCoachingInsight)}
               </p>
               <div className="flex items-center justify-between">
                 <span className="text-xs text-slate-400">{app.role}</span>
